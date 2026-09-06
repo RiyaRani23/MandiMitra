@@ -1,6 +1,24 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import FarmerDashboard from "./pages/FarmerDashboard";
+import BuyerDashboard from "./pages/BuyerDashboard";
+import FPODashboard from "./pages/FPODashboard";
+
 function App() {
   return (
-    <h1>MandiMitra</h1>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/farmer" element={<FarmerDashboard />} />
+        <Route path="/buyer" element={<BuyerDashboard />} />
+        <Route path="/fpo" element={<FPODashboard />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
