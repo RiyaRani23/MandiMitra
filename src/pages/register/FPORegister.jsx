@@ -45,16 +45,17 @@ function FPORegister() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    console.log("FPO Registration Data:", formData);
+  console.log("FPO Registration Data:", formData);
 
-    navigate("/verification-pending", {
+  navigate("/otp-verification", {
     state: {
       role: "fpo",
+      mobile: formData.mobile,
     },
   });
-  };
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-orange-50 px-4 py-10">

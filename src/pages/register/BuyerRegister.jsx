@@ -44,20 +44,18 @@ function BuyerRegister() {
   const handleBack = () => {
     setStep(1);
   };
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  console.log("Buyer Registration Data:", formData);
 
-    console.log("Buyer Registration Data:", formData);
-
-    navigate("/verification-pending", {
+  navigate("/otp-verification", {
     state: {
       role: "buyer",
+      mobile: formData.mobile,
     },
   });
-
-    // Backend will be connected later
-  };
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">

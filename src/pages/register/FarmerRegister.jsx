@@ -41,17 +41,18 @@ function FarmerRegister() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    console.log("Farmer Registration Data:", formData);
+  console.log("Farmer Registration Data:", formData);
 
-    navigate("/verification-pending", {
+  navigate("/otp-verification", {
     state: {
       role: "farmer",
+      mobile: formData.mobile,
     },
   });
-    // Backend will be connected later
-  };
+  // backend will be added later
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">

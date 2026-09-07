@@ -11,6 +11,7 @@ import VerificationPending from "./pages/register/VerificationPending";
 import FarmerDashboard from "./pages/FarmerDashboard";
 import BuyerDashboard from "./pages/BuyerDashboard";
 import FPODashboard from "./pages/FPODashboard";
+import OTPVerification from "./pages/OTPVerification";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/farmer" element={<FarmerDashboard />} />
         <Route path="/buyer" element={<BuyerDashboard />} />
         <Route path="/fpo" element={<FPODashboard />} />
+        <Route path="/otp-verification" element={<OTPVerification />} />
       </Routes>
     </BrowserRouter>
   );
