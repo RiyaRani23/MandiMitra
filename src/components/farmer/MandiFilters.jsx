@@ -19,7 +19,32 @@ const MandiFilters = ({
   // This will allow complete location lists from our backend.
   // ========================================================
 
-  const states = ["Maharashtra"];
+  const states = [
+  "Andhra Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+  "Goa",
+].sort();
 
   // Get unique districts from API data
   const districts = [
