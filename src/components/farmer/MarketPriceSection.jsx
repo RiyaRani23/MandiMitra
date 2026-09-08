@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchMandiPrices } from "../../services/mandiApi";
 import MarketPriceCard from "./MarketPriceCard";
+import MandiFilters from "./MandiFilters";
 
 const MarketPriceSection = () => {
   const [marketPrices, setMarketPrices] = useState([]);
@@ -8,6 +9,8 @@ const MarketPriceSection = () => {
   const [priceError, setPriceError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [showAllPrices, setShowAllPrices] = useState(false);
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedMarket, setSelectedMarket] = useState("");
 
   useEffect(() => {
     const loadPrices = async () => {
@@ -32,9 +35,30 @@ const MarketPriceSection = () => {
     loadPrices();
   }, []);
 
-  const filteredPrices = marketPrices.filter((item) =>
-    item.commodity?.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  // FUTURE BACKEND:
+  // This filtering can be moved to Spring Boot:
+  //
+  // GET /api/mandi/prices
+  //     ?state=Maharashtra
+  //     &district=Nashik
+  //     &market=Lasalgaon
+  //
+  // This will be useful when the database contains
+  // larger amounts of mandi-price data.
+  // ====================================================
+
+  const filteredPrices = marketPrices.filter((item) => {
+    const matchesSearch = item.commodity
+      ?.toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    const matchesDistrict =
+      !selectedDistrict || item.district === selectedDistrict;
+
+    const matchesMarket = !selectedMarket || item.market === selectedMarket;
+
+    return matchesSearch && matchesDistrict && matchesMarket;
+  });
 
   const visiblePrices = showAllPrices
     ? filteredPrices
@@ -94,31 +118,45 @@ const MarketPriceSection = () => {
 
         {/* Search + Status Bar */}
         {!loadingPrices && !priceError && (
-          <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-gray-100 bg-white p-3 shadow-sm sm:flex-row sm:items-center sm:justify-between">
-            <div className="relative flex-1">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                🔍
-              </span>
+          <>
+            {/* ================= MANDI LOCATION FILTER ================= */}
+            <MandiFilters
+              marketPrices={marketPrices}
+              selectedDistrict={selectedDistrict}
+              selectedMarket={selectedMarket}
+              onDistrictChange={(district) => {
+                setSelectedDistrict(district);
+                setSelectedMarket("");
+              }}
+              onMarketChange={setSelectedMarket}
+            />
 
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search for a crop..."
-                className="w-full rounded-xl bg-gray-50 py-3 pl-11 pr-4 text-sm text-gray-700 outline-none transition placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-green-100"
-              />
+            {/* ================= SEARCH BAR ================= */}
+            <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-gray-100 bg-white p-3 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+              <div className="relative flex-1">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                  🔍
+                </span>
+
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Search for a crop..."
+                  className="w-full rounded-xl bg-gray-50 py-3 pl-11 pr-4 text-sm text-gray-700 outline-none transition placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-green-100"
+                />
+              </div>
+
+              <div className="flex items-center gap-2 px-2">
+                <span className="h-2 w-2 rounded-full bg-green-500"></span>
+
+                <span className="text-xs font-medium text-gray-500">
+                  Live government market data
+                </span>
+              </div>
             </div>
-
-            <div className="flex items-center gap-2 px-2">
-              <span className="h-2 w-2 rounded-full bg-green-500"></span>
-
-              <span className="text-xs font-medium text-gray-500">
-                Live government market data
-              </span>
-            </div>
-          </div>
+          </>
         )}
-
         {/* Loading State */}
         {loadingPrices && (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
