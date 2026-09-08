@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import LocationSelector from "../../components/LocationSelector";
 
 function BuyerRegister() {
   const [step, setStep] = useState(1);
@@ -44,22 +45,21 @@ function BuyerRegister() {
   const handleBack = () => {
     setStep(1);
   };
-const handleSubmit = (e) => {
-  e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  console.log("Buyer Registration Data:", formData);
+    console.log("Buyer Registration Data:", formData);
 
-  navigate("/otp-verification", {
-    state: {
-      role: "buyer",
-      mobile: formData.mobile,
-    },
-  });
-};
+    navigate("/otp-verification", {
+      state: {
+        role: "buyer",
+        mobile: formData.mobile,
+      },
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
-
       {/* Header */}
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
         <Link to="/" className="text-2xl font-bold text-green-700">
@@ -80,7 +80,6 @@ const handleSubmit = (e) => {
       {/* Main */}
       <main className="flex items-center justify-center px-6 py-10">
         <div className="w-full max-w-3xl rounded-3xl bg-white p-7 shadow-xl sm:p-10">
-
           {/* Heading */}
           <div className="mb-8">
             <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-3xl">
@@ -105,7 +104,6 @@ const handleSubmit = (e) => {
           {/* Progress */}
           <div className="mb-10">
             <div className="flex items-center">
-
               {/* Step 1 */}
               <div
                 className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold ${
@@ -141,9 +139,7 @@ const handleSubmit = (e) => {
             <div className="mt-2 flex justify-between text-xs">
               <span
                 className={
-                  step === 1
-                    ? "font-semibold text-blue-700"
-                    : "text-gray-400"
+                  step === 1 ? "font-semibold text-blue-700" : "text-gray-400"
                 }
               >
                 Account & Business
@@ -151,9 +147,7 @@ const handleSubmit = (e) => {
 
               <span
                 className={
-                  step === 2
-                    ? "font-semibold text-blue-700"
-                    : "text-gray-400"
+                  step === 2 ? "font-semibold text-blue-700" : "text-gray-400"
                 }
               >
                 Procurement Details
@@ -164,7 +158,6 @@ const handleSubmit = (e) => {
           {/* STEP 1 */}
           {step === 1 && (
             <form onSubmit={handleNext} className="space-y-6">
-
               {/* Contact Person */}
               <div>
                 <label className="mb-2 block text-sm font-semibold text-gray-700">
@@ -184,7 +177,6 @@ const handleSubmit = (e) => {
 
               {/* Mobile + Email */}
               <div className="grid gap-5 md:grid-cols-2">
-
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-gray-700">
                     Mobile Number
@@ -215,7 +207,6 @@ const handleSubmit = (e) => {
                     className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                   />
                 </div>
-
               </div>
 
               {/* Business Name */}
@@ -299,14 +290,12 @@ const handleSubmit = (e) => {
               >
                 Continue →
               </button>
-
             </form>
           )}
 
           {/* STEP 2 */}
           {step === 2 && (
             <form onSubmit={handleSubmit} className="space-y-6">
-
               {/* Business Location */}
               <div className="rounded-2xl bg-blue-50 p-5">
                 <h2 className="font-semibold text-blue-800">
@@ -314,51 +303,24 @@ const handleSubmit = (e) => {
                 </h2>
 
                 <p className="mt-1 text-sm text-blue-700">
-                  Your location helps us connect you with nearby farmers,
-                  FPOs and agricultural markets.
+                  Your location helps us connect you with nearby farmers, FPOs
+                  and agricultural markets.
                 </p>
               </div>
 
-              {/* State + District */}
-              <div className="grid gap-5 md:grid-cols-2">
-
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    State
-                  </label>
-
-                  <input
-                    type="text"
-                    name="state"
-                    value={formData.state}
-                    onChange={handleChange}
-                    placeholder="Enter your state"
-                    required
-                    className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                  />
-                </div>
-
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    District
-                  </label>
-
-                  <input
-                    type="text"
-                    name="district"
-                    value={formData.district}
-                    onChange={handleChange}
-                    placeholder="Enter your district"
-                    required
-                    className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                  />
-                </div>
-
-              </div>
+              <LocationSelector
+                onLocationChange={(location) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    state: location.state,
+                    district: location.district,
+                    pincode: location.pincode,
+                  }));
+                }}
+              />
 
               {/* City / Block + Pincode */}
               <div className="grid gap-5 md:grid-cols-2">
-
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-gray-700">
                     City / Block
@@ -374,24 +336,6 @@ const handleSubmit = (e) => {
                     className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                   />
                 </div>
-
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    Pincode
-                  </label>
-
-                  <input
-                    type="text"
-                    name="pincode"
-                    value={formData.pincode}
-                    onChange={handleChange}
-                    placeholder="Enter 6-digit pincode"
-                    maxLength="6"
-                    required
-                    className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                  />
-                </div>
-
               </div>
 
               {/* Business Address */}
@@ -418,8 +362,8 @@ const handleSubmit = (e) => {
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-500">
-                  This helps MandiMitra find suitable farmers and FPOs
-                  for your requirements.
+                  This helps MandiMitra find suitable farmers and FPOs for your
+                  requirements.
                 </p>
               </div>
 
@@ -506,7 +450,6 @@ const handleSubmit = (e) => {
 
               {/* Buttons */}
               <div className="flex gap-4">
-
                 <button
                   type="button"
                   onClick={handleBack}
@@ -521,9 +464,7 @@ const handleSubmit = (e) => {
                 >
                   Create Account
                 </button>
-
               </div>
-
             </form>
           )}
 
@@ -536,7 +477,6 @@ const handleSubmit = (e) => {
               ← Change registration type
             </Link>
           </div>
-
         </div>
       </main>
     </div>
@@ -544,4 +484,3 @@ const handleSubmit = (e) => {
 }
 
 export default BuyerRegister;
-

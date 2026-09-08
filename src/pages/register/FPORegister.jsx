@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import LocationSelector from "../../components/LocationSelector";
 
 function FPORegister() {
   const [step, setStep] = useState(1);
@@ -45,27 +46,23 @@ function FPORegister() {
   };
 
   const handleSubmit = (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  console.log("FPO Registration Data:", formData);
+    console.log("FPO Registration Data:", formData);
 
-  navigate("/otp-verification", {
-    state: {
-      role: "fpo",
-      mobile: formData.mobile,
-    },
-  });
-};
+    navigate("/otp-verification", {
+      state: {
+        role: "fpo",
+        mobile: formData.mobile,
+      },
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-orange-50 px-4 py-10">
-
       {/* Header */}
       <div className="mx-auto mb-8 max-w-3xl text-center">
-        <Link
-          to="/"
-          className="text-3xl font-bold text-green-700"
-        >
+        <Link to="/" className="text-3xl font-bold text-green-700">
           Mandi<span className="text-orange-500">Mitra</span>
         </Link>
 
@@ -80,12 +77,9 @@ function FPORegister() {
 
       {/* Main Card */}
       <div className="mx-auto max-w-3xl rounded-2xl bg-white p-6 shadow-xl sm:p-8">
-
         {/* Progress */}
         <div className="mb-8 flex items-center justify-center">
-
           <div className="flex items-center">
-
             <div className="flex flex-col items-center">
               <div
                 className={`flex h-10 w-10 items-center justify-center rounded-full font-semibold ${
@@ -123,12 +117,10 @@ function FPORegister() {
                 FPO Profile & Location
               </span>
             </div>
-
           </div>
         </div>
 
         <form onSubmit={handleSubmit}>
-
           {/* STEP 1 */}
           {step === 1 && (
             <div>
@@ -137,7 +129,6 @@ function FPORegister() {
               </h2>
 
               <div className="grid gap-5 sm:grid-cols-2">
-
                 {/* FPO Name */}
                 <div className="sm:col-span-2">
                   <label className="mb-2 block text-sm font-medium text-gray-700">
@@ -279,7 +270,6 @@ function FPORegister() {
                     required
                   />
                 </div>
-
               </div>
 
               {/* Next Button */}
@@ -301,40 +291,16 @@ function FPORegister() {
               </h2>
 
               <div className="grid gap-5 sm:grid-cols-2">
-
-                {/* State */}
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    State
-                  </label>
-
-                  <input
-                    type="text"
-                    name="state"
-                    value={formData.state}
-                    onChange={handleChange}
-                    placeholder="Enter state"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
-                    required
-                  />
-                </div>
-
-                {/* District */}
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    District
-                  </label>
-
-                  <input
-                    type="text"
-                    name="district"
-                    value={formData.district}
-                    onChange={handleChange}
-                    placeholder="Enter district"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
-                    required
-                  />
-                </div>
+                <LocationSelector
+                  onLocationChange={(location) => {
+                    setFormData((prev) => ({
+                      ...prev,
+                      state: location.state,
+                      district: location.district,
+                      pincode: location.pincode,
+                    }));
+                  }}
+                />
 
                 {/* Block */}
                 <div>
@@ -365,24 +331,6 @@ function FPORegister() {
                     value={formData.cityVillage}
                     onChange={handleChange}
                     placeholder="Enter village or city"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
-                    required
-                  />
-                </div>
-
-                {/* Pincode */}
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    Pincode
-                  </label>
-
-                  <input
-                    type="text"
-                    name="pincode"
-                    value={formData.pincode}
-                    onChange={handleChange}
-                    placeholder="Enter pincode"
-                    maxLength="6"
                     className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
                     required
                   />
@@ -475,12 +423,10 @@ function FPORegister() {
                     required
                   ></textarea>
                 </div>
-
               </div>
 
               {/* Buttons */}
               <div className="mt-8 flex gap-4">
-
                 <button
                   type="button"
                   onClick={handleBack}
@@ -495,11 +441,9 @@ function FPORegister() {
                 >
                   Create FPO Account
                 </button>
-
               </div>
             </div>
           )}
-
         </form>
 
         {/* Login */}
@@ -512,7 +456,6 @@ function FPORegister() {
             Login
           </Link>
         </p>
-
       </div>
 
       {/* Verification Note */}
@@ -523,7 +466,6 @@ function FPORegister() {
         </span>{" "}
         until the submitted details are reviewed and approved.
       </p>
-
     </div>
   );
 }
