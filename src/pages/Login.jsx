@@ -1,6 +1,43 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const [loginData, setLoginData] = useState({
+    identifier: "demo@mandimitra.com",
+    password: "123456",
+  });
+
+  const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setLoginData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    setError("");
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const demoEmail = "demo@mandimitra.com";
+    const demoPassword = "123456";
+
+    if (
+      loginData.identifier === demoEmail &&
+      loginData.password === demoPassword
+    ) {
+      navigate("/farmer");
+    } else {
+      setError("Invalid email or password.");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
       {/* Header */}
@@ -24,7 +61,7 @@ function Login() {
       <main className="flex min-h-[calc(100vh-90px)] items-center justify-center px-6 py-10">
         <div className="grid w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-xl md:grid-cols-2">
 
-          {/* Left */}
+          {/* Left Section */}
           <div className="hidden bg-green-700 p-12 text-white md:flex md:flex-col md:justify-between">
             <div>
               <div className="mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 text-2xl">
@@ -54,8 +91,9 @@ function Login() {
             </div>
           </div>
 
-          {/* Right */}
+          {/* Right Section */}
           <div className="p-7 sm:p-10 md:p-12">
+
             <div className="mb-8">
               <p className="text-sm font-semibold text-green-600">
                 WELCOME BACK
@@ -70,7 +108,9 @@ function Login() {
               </p>
             </div>
 
-            <form className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5">
+
+              {/* Email / Mobile */}
               <div>
                 <label className="mb-2 block text-sm font-semibold text-gray-700">
                   Mobile Number or Email
@@ -78,11 +118,16 @@ function Login() {
 
                 <input
                   type="text"
+                  name="identifier"
+                  value={loginData.identifier}
+                  onChange={handleChange}
                   placeholder="Enter mobile number or email"
                   className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100"
+                  required
                 />
               </div>
 
+              {/* Password */}
               <div>
                 <div className="mb-2 flex items-center justify-between">
                   <label className="text-sm font-semibold text-gray-700">
@@ -99,11 +144,16 @@ function Login() {
 
                 <input
                   type="password"
+                  name="password"
+                  value={loginData.password}
+                  onChange={handleChange}
                   placeholder="Enter your password"
                   className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100"
+                  required
                 />
               </div>
 
+              {/* Remember Me */}
               <label className="flex items-center gap-2 text-sm text-gray-600">
                 <input
                   type="checkbox"
@@ -112,6 +162,14 @@ function Login() {
                 Remember me
               </label>
 
+              {/* Error */}
+              {error && (
+                <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+                  {error}
+                </div>
+              )}
+
+              {/* Login Button */}
               <button
                 type="submit"
                 className="w-full rounded-xl bg-green-600 py-3.5 font-semibold text-white shadow-lg shadow-green-600/20 transition hover:bg-green-700"
@@ -120,12 +178,14 @@ function Login() {
               </button>
             </form>
 
+            {/* Divider */}
             <div className="my-7 flex items-center gap-4">
               <div className="h-px flex-1 bg-gray-200" />
               <span className="text-xs text-gray-400">OR</span>
               <div className="h-px flex-1 bg-gray-200" />
             </div>
 
+            {/* Register */}
             <p className="text-center text-sm text-gray-600">
               New to MandiMitra?{" "}
               <Link
@@ -135,6 +195,7 @@ function Login() {
                 Create an account
               </Link>
             </p>
+
           </div>
         </div>
       </main>

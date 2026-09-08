@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import LocationSelector from "../../components/LocationSelector";
 
 function FarmerRegister() {
   const [step, setStep] = useState(1);
@@ -41,22 +42,21 @@ function FarmerRegister() {
   };
 
   const handleSubmit = (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  console.log("Farmer Registration Data:", formData);
+    console.log("Farmer Registration Data:", formData);
 
-  navigate("/otp-verification", {
-    state: {
-      role: "farmer",
-      mobile: formData.mobile,
-    },
-  });
-  // backend will be added later
-};
+    navigate("/otp-verification", {
+      state: {
+        role: "farmer",
+        mobile: formData.mobile,
+      },
+    });
+    // backend will be added later
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
-
       {/* Header */}
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
         <Link to="/" className="text-2xl font-bold text-green-700">
@@ -77,7 +77,6 @@ function FarmerRegister() {
       {/* Main */}
       <main className="flex items-center justify-center px-6 py-10">
         <div className="w-full max-w-3xl rounded-3xl bg-white p-7 shadow-xl sm:p-10">
-
           {/* Heading */}
           <div className="mb-8">
             <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-green-100 text-3xl">
@@ -102,7 +101,6 @@ function FarmerRegister() {
           {/* Progress */}
           <div className="mb-10">
             <div className="flex items-center">
-
               {/* Step 1 */}
               <div
                 className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold ${
@@ -138,9 +136,7 @@ function FarmerRegister() {
             <div className="mt-2 flex justify-between text-xs">
               <span
                 className={
-                  step === 1
-                    ? "font-semibold text-green-700"
-                    : "text-gray-400"
+                  step === 1 ? "font-semibold text-green-700" : "text-gray-400"
                 }
               >
                 Account Details
@@ -148,9 +144,7 @@ function FarmerRegister() {
 
               <span
                 className={
-                  step === 2
-                    ? "font-semibold text-green-700"
-                    : "text-gray-400"
+                  step === 2 ? "font-semibold text-green-700" : "text-gray-400"
                 }
               >
                 Farm & Location
@@ -161,7 +155,6 @@ function FarmerRegister() {
           {/* STEP 1 */}
           {step === 1 && (
             <form onSubmit={handleNext} className="space-y-6">
-
               {/* Full Name */}
               <div>
                 <label className="mb-2 block text-sm font-semibold text-gray-700">
@@ -181,7 +174,6 @@ function FarmerRegister() {
 
               {/* Mobile + Email */}
               <div className="grid gap-5 md:grid-cols-2">
-
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-gray-700">
                     Mobile Number
@@ -212,7 +204,6 @@ function FarmerRegister() {
                     className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100"
                   />
                 </div>
-
               </div>
 
               {/* Password */}
@@ -256,14 +247,12 @@ function FarmerRegister() {
               >
                 Continue →
               </button>
-
             </form>
           )}
 
           {/* STEP 2 */}
           {step === 2 && (
             <form onSubmit={handleSubmit} className="space-y-6">
-
               {/* Location Heading */}
               <div className="rounded-2xl bg-green-50 p-5">
                 <h2 className="font-semibold text-green-800">
@@ -271,51 +260,24 @@ function FarmerRegister() {
                 </h2>
 
                 <p className="mt-1 text-sm text-green-700">
-                  Your location helps us provide nearby mandi prices,
-                  buyers and logistics options.
+                  Your location helps us provide nearby mandi prices, buyers and
+                  logistics options.
                 </p>
               </div>
 
-              {/* State + District */}
-              <div className="grid gap-5 md:grid-cols-2">
-
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    State
-                  </label>
-
-                  <input
-                    type="text"
-                    name="state"
-                    value={formData.state}
-                    onChange={handleChange}
-                    placeholder="Enter your state"
-                    required
-                    className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100"
-                  />
-                </div>
-
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    District
-                  </label>
-
-                  <input
-                    type="text"
-                    name="district"
-                    value={formData.district}
-                    onChange={handleChange}
-                    placeholder="Enter your district"
-                    required
-                    className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100"
-                  />
-                </div>
-
-              </div>
+              <LocationSelector
+                onLocationChange={(location) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    state: location.state,
+                    district: location.district,
+                    pincode: location.pincode,
+                  }));
+                }}
+              />
 
               {/* Block + Village */}
               <div className="grid gap-5 md:grid-cols-2">
-
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-gray-700">
                     Block
@@ -347,36 +309,15 @@ function FarmerRegister() {
                     className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100"
                   />
                 </div>
-
-              </div>
-
-              {/* Pincode */}
-              <div>
-                <label className="mb-2 block text-sm font-semibold text-gray-700">
-                  Pincode
-                </label>
-
-                <input
-                  type="text"
-                  name="pincode"
-                  value={formData.pincode}
-                  onChange={handleChange}
-                  placeholder="Enter 6-digit pincode"
-                  maxLength="6"
-                  required
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100"
-                />
               </div>
 
               {/* Farm Details */}
               <div className="rounded-2xl bg-gray-50 p-5">
-                <h2 className="font-semibold text-gray-800">
-                  🌾 Farm Details
-                </h2>
+                <h2 className="font-semibold text-gray-800">🌾 Farm Details</h2>
 
                 <p className="mt-1 text-sm text-gray-500">
-                  This information will help MandiMitra match you with
-                  suitable buyers and opportunities.
+                  This information will help MandiMitra match you with suitable
+                  buyers and opportunities.
                 </p>
               </div>
 
@@ -403,7 +344,6 @@ function FarmerRegister() {
 
               {/* Land Size + Irrigation */}
               <div className="grid gap-5 md:grid-cols-2">
-
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-gray-700">
                     Farm Size (in acres)
@@ -443,7 +383,6 @@ function FarmerRegister() {
                     <option value="other">Other</option>
                   </select>
                 </div>
-
               </div>
 
               {/* Farming Type */}
@@ -469,7 +408,6 @@ function FarmerRegister() {
 
               {/* Buttons */}
               <div className="flex gap-4">
-
                 <button
                   type="button"
                   onClick={handleBack}
@@ -484,9 +422,7 @@ function FarmerRegister() {
                 >
                   Create Account
                 </button>
-
               </div>
-
             </form>
           )}
 
@@ -499,7 +435,6 @@ function FarmerRegister() {
               ← Change registration type
             </Link>
           </div>
-
         </div>
       </main>
     </div>
