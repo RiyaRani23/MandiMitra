@@ -9,6 +9,7 @@ const MarketPriceSection = () => {
   const [priceError, setPriceError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [showAllPrices, setShowAllPrices] = useState(false);
+  const [selectedState, setSelectedState] = useState("Maharashtra");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedMarket, setSelectedMarket] = useState("");
 
@@ -18,8 +19,26 @@ const MarketPriceSection = () => {
         setLoadingPrices(true);
         setPriceError("");
 
+        // ================= BACKEND INTEGRATION =================
+        // CURRENT:
+        // Fetches live mandi data directly from data.gov.in.
+        //
+        // FUTURE SPRING BOOT:
+        // Replace fetchMandiPrices() with:
+        //
+        // GET /api/mandi/prices
+        // ?state=Maharashtra
+        // &district=Nashik
+        // &market=Lasalgaon
+        //
+        // The frontend will then receive filtered market data
+        // from our Spring Boot backend/database.
+        // ========================================================
+
         const data = await fetchMandiPrices({
-          state: "Maharashtra",
+          state: selectedState,
+          district: selectedDistrict,
+          market: selectedMarket,
           limit: 100,
         });
 
@@ -33,7 +52,7 @@ const MarketPriceSection = () => {
     };
 
     loadPrices();
-  }, []);
+  }, [selectedState, selectedDistrict, selectedMarket]);
 
   // FUTURE BACKEND:
   // This filtering can be moved to Spring Boot:
@@ -101,7 +120,7 @@ const MarketPriceSection = () => {
                 </p>
 
                 <p className="text-sm font-semibold text-gray-800">
-                  Maharashtra
+                  {selectedState}
                 </p>
               </div>
             </div>
@@ -122,8 +141,14 @@ const MarketPriceSection = () => {
             {/* ================= MANDI LOCATION FILTER ================= */}
             <MandiFilters
               marketPrices={marketPrices}
+              selectedState={selectedState}
               selectedDistrict={selectedDistrict}
               selectedMarket={selectedMarket}
+              onStateChange={(state) => {
+                setSelectedState(state);
+                setSelectedDistrict("");
+                setSelectedMarket("");
+              }}
               onDistrictChange={(district) => {
                 setSelectedDistrict(district);
                 setSelectedMarket("");

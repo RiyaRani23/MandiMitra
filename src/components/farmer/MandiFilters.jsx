@@ -1,10 +1,26 @@
 const MandiFilters = ({
   marketPrices,
+  selectedState,
   selectedDistrict,
   selectedMarket,
+  onStateChange,
   onDistrictChange,
   onMarketChange,
 }) => {
+  // ================= BACKEND INTEGRATION =================
+  // CURRENT:
+  // State list is temporarily maintained on the frontend.
+  //
+  // FUTURE SPRING BOOT:
+  // GET /api/mandi/states
+  // GET /api/mandi/districts?state=Maharashtra
+  // GET /api/mandi/markets?state=Maharashtra&district=Nashik
+  //
+  // This will allow complete location lists from our backend.
+  // ========================================================
+
+  const states = ["Maharashtra"];
+
   // Get unique districts from API data
   const districts = [
     ...new Set(
@@ -40,7 +56,26 @@ const MandiFilters = ({
         </p>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-3">
+        {/* State */}
+        <div>
+          <label className="mb-1.5 block text-xs font-semibold text-gray-600">
+            State
+          </label>
+
+          <select
+            value={selectedState}
+            onChange={(e) => onStateChange(e.target.value)}
+            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-700 outline-none transition focus:border-green-500 focus:bg-white"
+          >
+            {states.map((state) => (
+              <option key={state} value={state}>
+                {state}
+              </option>
+            ))}
+          </select>
+        </div>
+
         {/* District */}
         <div>
           <label className="mb-1.5 block text-xs font-semibold text-gray-600">
