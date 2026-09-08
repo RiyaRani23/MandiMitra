@@ -13,6 +13,9 @@ import BuyerDashboard from "./pages/BuyerDashboard";
 import FPODashboard from "./pages/FPODashboard";
 import OTPVerification from "./pages/OTPVerification";
 
+import FarmerLayout from "./components/farmer/FarmerLayout";
+import MarketPrices from "./pages/farmer/MarketPrices";
+
 function App() {
   return (
     <BrowserRouter>
@@ -26,7 +29,15 @@ function App() {
         <Route path="/register/buyer" element={<BuyerRegister />} />
         <Route path="/register/fpo" element={<FPORegister />} />
         <Route path="/verification-pending" element={<VerificationPending />} />
-        <Route path="/farmer" element={<FarmerDashboard />} />
+        // Farmer Routes
+        <Route path="/farmer" element={<FarmerLayout />}>
+          <Route index element={<FarmerDashboard />} />
+          <Route path="market-prices" element={<MarketPrices />} />
+          <Route path="find-buyers" element={<FarmerDashboard />} />
+          <Route path="fpos" element={<FarmerDashboard />} />
+          <Route path="my-deals" element={<FarmerDashboard />} />
+          <Route path="payments" element={<FarmerDashboard />} />
+        </Route>
         <Route path="/buyer" element={<BuyerDashboard />} />
         <Route path="/fpo" element={<FPODashboard />} />
         <Route path="/otp-verification" element={<OTPVerification />} />
