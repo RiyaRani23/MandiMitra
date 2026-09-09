@@ -8,7 +8,7 @@ const FarmerLayout = () => {
       <FarmerNavbar />
       <FarmerSidebar />
 
-      <main className="pt-16 md:ml-64">
+      <main className="pt-4 md:ml-64">
         <Outlet />
       </main>
     </div>

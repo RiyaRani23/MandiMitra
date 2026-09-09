@@ -2,8 +2,8 @@ import MarketPriceSection from "../../components/farmer/MarketPriceSection";
 
 const MarketPrices = () => {
   return (
-      <div className="p-6 md:p-8">
-        <div className="mb-6">
+      <div className="px-5 py-4 md:px-7 md:py-5">
+        <div className="mb-5">
           <p className="text-sm font-medium text-green-600">
             Farmer Dashboard
           </p>
