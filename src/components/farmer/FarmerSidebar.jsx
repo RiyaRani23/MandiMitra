@@ -1,6 +1,7 @@
 import {
   LayoutDashboard,
   Store,
+  Wheat,
   ShoppingCart,
   Users,
   PackageCheck,
@@ -12,11 +13,20 @@ import {
 
 function FarmerSidebar({ isOpen, onClose }) {
   const menuItems = [
-    { name: "Dashboard", icon: LayoutDashboard, path: "/farmer" },
+    {
+      name: "Dashboard",
+      icon: LayoutDashboard,
+      path: "/farmer",
+    },
     {
       name: "Market Prices",
       icon: Store,
       path: "/farmer/market-prices",
+    },
+    {
+      name: "Sell Your Produce",
+      icon: Wheat,
+      path: "/farmer/sell-produce",
     },
     {
       name: "Find Buyers",
@@ -110,4 +120,3 @@ function FarmerSidebar({ isOpen, onClose }) {
 }
 
 export default FarmerSidebar;
-

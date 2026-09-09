@@ -18,6 +18,11 @@ import FPODashboard from "./pages/FPODashboard";
 // Farmer section
 import FarmerLayout from "./components/farmer/FarmerLayout";
 import MarketPrices from "./pages/farmer/MarketPrices";
+import SellProduce from "./pages/farmer/SellProduce";
+import FindBuyers from "./pages/farmer/FindBuyers";
+import FarmerPayments from "./pages/farmer/FarmerPayments";
+import FPOs from "./pages/farmer/FPOs";
+import FarmerDeals from "./pages/farmer/FarmerDeals";
 
 import BuyerLayout from "./components/buyer/BuyerLayout";
 import BuyerMarketPrices from "./pages/buyer/BuyerMarketPrices";
@@ -50,11 +55,12 @@ function App() {
         <Route path="/farmer" element={<FarmerLayout />}>
           <Route index element={<FarmerDashboard />} />
           <Route path="market-prices" element={<MarketPrices />} />
-
-          <Route path="find-buyers" element={<FarmerDashboard />} />
-          <Route path="fpos" element={<FarmerDashboard />} />
-          <Route path="my-deals" element={<FarmerDashboard />} />
-          <Route path="payments" element={<FarmerDashboard />} />
+          <Route path="sell-produce" element={<SellProduce />} />
+          <Route path="find-buyers" element={<FindBuyers />} />
+          <Route path="fpos" element={<FPOs />} />
+          <Route path="my-deals" element={<FarmerDeals />} />
+          <Route path="payments" element={<FarmerPayments />} />
+          
         </Route>
 
         <Route path="/buyer" element={<BuyerLayout />}>
