@@ -1,4 +1,4 @@
-import MarketPriceSection from "../../components/farmer/MarketPriceSection";
+import MarketPriceSection from "../../components/market/MarketPriceSection";
 
 const MarketPrices = () => {
   return (

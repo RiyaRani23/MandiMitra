@@ -19,11 +19,13 @@ import FPODashboard from "./pages/FPODashboard";
 import FarmerLayout from "./components/farmer/FarmerLayout";
 import MarketPrices from "./pages/farmer/MarketPrices";
 
+import BuyerLayout from "./components/buyer/BuyerLayout";
+import BuyerMarketPrices from "./pages/buyer/BuyerMarketPrices";
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-
         {/* Home */}
         <Route path="/" element={<Home />} />
 
@@ -35,15 +37,9 @@ function App() {
         <Route path="/register/buyer" element={<BuyerRegister />} />
         <Route path="/register/fpo" element={<FPORegister />} />
 
-        <Route
-          path="/verification-pending"
-          element={<VerificationPending />}
-        />
+        <Route path="/verification-pending" element={<VerificationPending />} />
 
-        <Route
-          path="/otp-verification"
-          element={<OTPVerification />}
-        />
+        <Route path="/otp-verification" element={<OTPVerification />} />
 
         {/* Farmer */}
         <Route path="/farmer" element={<FarmerLayout />}>
@@ -56,12 +52,13 @@ function App() {
           <Route path="payments" element={<FarmerDashboard />} />
         </Route>
 
-        {/* Buyer */}
-        <Route path="/buyer" element={<BuyerDashboard />} />
+        <Route path="/buyer" element={<BuyerLayout />}>
+          <Route index element={<BuyerDashboard />} />
+          <Route path="market-prices" element={<BuyerMarketPrices />} />
+        </Route>
 
         {/* FPO */}
         <Route path="/fpo" element={<FPODashboard />} />
-
       </Routes>
     </BrowserRouter>
   );

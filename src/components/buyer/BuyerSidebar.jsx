@@ -9,16 +9,17 @@ import {
   LogOut,
   X,
 } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 function BuyerSidebar({ isOpen, onClose }) {
   const menuItems = [
-    { name: "Dashboard", icon: LayoutDashboard },
-    { name: "Market Prices", icon: Store },
-    { name: "Buying Requirements", icon: ClipboardList },
-    { name: "Find Farmers", icon: Users },
-    { name: "My Offers", icon: Handshake },
-    { name: "My Deals", icon: PackageCheck },
-    { name: "Payments", icon: CreditCard },
+    { name: "Dashboard", icon: LayoutDashboard, path: "/buyer" },
+    { name: "Market Prices", icon: Store, path: "/buyer/market-prices" },
+    { name: "Buying Requirements", icon: ClipboardList, path: "/buyer/requirements" },
+    { name: "Find Farmers", icon: Users, path: "/buyer/find-farmers" },
+    { name: "My Offers", icon: Handshake, path: "/buyer/offers" },
+    { name: "My Deals", icon: PackageCheck, path: "/buyer/deals" },
+    { name: "Payments", icon: CreditCard, path: "/buyer/payments" },
   ];
 
   return (
@@ -51,21 +52,26 @@ function BuyerSidebar({ isOpen, onClose }) {
 
       {/* Menu */}
       <nav className="flex-1 space-y-1 px-3 py-5">
-        {menuItems.map((item, index) => {
+        {menuItems.map((item) => {
           const Icon = item.icon;
 
           return (
-            <button
+            <NavLink
               key={item.name}
-              className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm transition ${
-                index === 0
-                  ? "bg-white/10 font-medium text-[#f7941d]"
-                  : "text-white/70 hover:bg-white/10 hover:text-white"
-              }`}
+              to={item.path}
+              end={item.path === "/buyer"}
+              onClick={onClose}
+              className={({ isActive }) =>
+                `flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm transition ${
+                  isActive
+                    ? "bg-white/10 font-medium text-[#f7941d]"
+                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                }`
+              }
             >
               <Icon size={18} strokeWidth={1.8} />
               <span>{item.name}</span>
-            </button>
+            </NavLink>
           );
         })}
       </nav>
