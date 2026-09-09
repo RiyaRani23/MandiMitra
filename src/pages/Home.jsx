@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import Hero from "../components/Hero";
 import Features from "../components/Features";
 import HowItWorks from "../components/HowItWorks";
@@ -7,18 +9,36 @@ import About from "../components/About";
 import Navbar from "../components/Navbar";
 
 function Home() {
+  useEffect(() => {
+    const hash = window.location.hash;
+
+    if (hash) {
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+
+        if (element) {
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }, 100);
+    }
+  }, []);
+
   return (
     <div>
-      <Navbar/> 
+      <Navbar />
+
       <main>
-        <Hero/>
-        <About/>
-        <Features/>
-        <HowItWorks/>
-        <CTA/>
+        <Hero />
+        <About />
+        <Features />
+        <HowItWorks />
+        <CTA />
       </main>
 
-      <Footer/>
+      <Footer />
     </div>
   );
 }

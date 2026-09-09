@@ -32,7 +32,7 @@ function Navbar() {
     },
     {
       name: "About",
-      path: "/about",
+      path: "/#about",
     },
   ];
 
@@ -53,7 +53,6 @@ function Navbar() {
       }`}
     >
       <div className="mx-auto flex h-[78px] max-w-[1350px] items-center justify-between px-5 sm:px-8">
-
         {/* ================= LOGO ================= */}
         <Link
           to="/"
@@ -84,12 +83,11 @@ function Navbar() {
 
         {/* ================= DESKTOP NAV ================= */}
         <div className="hidden items-center gap-7 lg:flex">
-
           {/* Navigation Links */}
           {navLinks.map((link) => (
-            <Link
+            <a
               key={link.name}
-              to={link.path}
+              href={link.path}
               className={`relative py-2 text-[12px] font-medium transition-colors duration-200 ${
                 isActive(link.path)
                   ? "text-[#f7941d]"
@@ -98,11 +96,10 @@ function Navbar() {
             >
               {link.name}
 
-              {/* Active underline */}
               {isActive(link.path) && (
                 <span className="absolute -bottom-1 left-0 h-[2px] w-full rounded-full bg-[#f7941d]" />
               )}
-            </Link>
+            </a>
           ))}
 
           {/* ================= LANGUAGE ================= */}
@@ -167,7 +164,6 @@ function Navbar() {
         }`}
       >
         <div className="mx-auto max-w-[1350px] space-y-1 px-5 py-5 sm:px-8">
-
           {/* Mobile Links */}
           {navLinks.map((link) => (
             <Link
