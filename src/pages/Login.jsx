@@ -32,7 +32,7 @@ function Login() {
       loginData.identifier === demoEmail &&
       loginData.password === demoPassword
     ) {
-      navigate("/farmer");
+      navigate("/buyer");
     } else {
       setError("Invalid email or password.");
     }

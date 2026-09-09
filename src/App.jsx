@@ -1,18 +1,17 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-
-import Navbar from "./components/Navbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Pages
 import Home from "./pages/Home";
+
 import Login from "./pages/Login";
 import Register from "./pages/register/Register";
 import FarmerRegister from "./pages/register/FarmerRegister";
 import BuyerRegister from "./pages/register/BuyerRegister";
 import FPORegister from "./pages/register/FPORegister";
+
 import VerificationPending from "./pages/register/VerificationPending";
 import OTPVerification from "./pages/OTPVerification";
 
-// Dashboards
 import FarmerDashboard from "./pages/FarmerDashboard";
 import BuyerDashboard from "./pages/BuyerDashboard";
 import FPODashboard from "./pages/FPODashboard";
@@ -21,23 +20,9 @@ import FPODashboard from "./pages/FPODashboard";
 import FarmerLayout from "./components/farmer/FarmerLayout";
 import MarketPrices from "./pages/farmer/MarketPrices";
 
-
-function AppContent() {
-  const location = useLocation();
-
-  // Pages where the main Navbar should NOT appear
-  const hideNavbar =
-    location.pathname === "/login" ||
-    location.pathname === "/register" ||
-    location.pathname.startsWith("/register/") ||
-    location.pathname === "/otp-verification" ||
-    location.pathname === "/verification-pending" ||
-    location.pathname.startsWith("/farmer");
-
+function App() {
   return (
-    <>
-      {!hideNavbar && <Navbar />}
-
+    <BrowserRouter>
       <Routes>
         {/* Home */}
         <Route path="/" element={<Home />} />
@@ -46,21 +31,9 @@ function AppContent() {
         <Route path="/login" element={<Login />} />
 
         <Route path="/register" element={<Register />} />
-
-        <Route
-          path="/register/farmer"
-          element={<FarmerRegister />}
-        />
-
-        <Route
-          path="/register/buyer"
-          element={<BuyerRegister />}
-        />
-
-        <Route
-          path="/register/fpo"
-          element={<FPORegister />}
-        />
+        <Route path="/register/farmer" element={<FarmerRegister />} />
+        <Route path="/register/buyer" element={<BuyerRegister />} />
+        <Route path="/register/fpo" element={<FPORegister />} />
 
         <Route
           path="/verification-pending"
@@ -74,58 +47,25 @@ function AppContent() {
 
         {/* Farmer Routes */}
         <Route path="/farmer" element={<FarmerLayout />}>
-          <Route
-            index
-            element={<FarmerDashboard />}
-          />
+          {/* /farmer */}
+          <Route index element={<FarmerDashboard />} />
 
-          <Route
-            path="market-prices"
-            element={<MarketPrices />}
-          />
+          {/* /farmer/market-prices */}
+          <Route path="market-prices" element={<MarketPrices />} />
 
-          <Route
-            path="find-buyers"
-            element={<FarmerDashboard />}
-          />
-
-          <Route
-            path="fpos"
-            element={<FarmerDashboard />}
-          />
-
-          <Route
-            path="my-deals"
-            element={<FarmerDashboard />}
-          />
-
-          <Route
-            path="payments"
-            element={<FarmerDashboard />}
-          />
+          {/* Temporary placeholder pages */}
+          <Route path="find-buyers" element={<FarmerDashboard />} />
+          <Route path="fpos" element={<FarmerDashboard />} />
+          <Route path="my-deals" element={<FarmerDashboard />} />
+          <Route path="payments" element={<FarmerDashboard />} />
         </Route>
 
         {/* Buyer */}
-        <Route
-          path="/buyer"
-          element={<BuyerDashboard />}
-        />
+        <Route path="/buyer" element={<BuyerDashboard />} />
 
         {/* FPO */}
-        <Route
-          path="/fpo"
-          element={<FPODashboard />}
-        />
+        <Route path="/fpo" element={<FPODashboard />} />
       </Routes>
-    </>
-  );
-}
-
-
-function App() {
-  return (
-    <BrowserRouter>
-      <AppContent />
     </BrowserRouter>
   );
 }

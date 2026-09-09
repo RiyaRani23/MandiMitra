@@ -21,6 +21,9 @@ const API_URL =
 
 export const fetchMandiPrices = async ({
   state,
+  district,
+  market,
+  commodity,
   limit = 100,
   offset = 0,
 } = {}) => {
@@ -35,9 +38,20 @@ export const fetchMandiPrices = async ({
   url.searchParams.set("limit", limit);
   url.searchParams.set("offset", offset);
 
-  // Add state filter only when a state is selected
   if (state) {
     url.searchParams.set("filters[state]", state);
+  }
+
+  if (district) {
+    url.searchParams.set("filters[district]", district);
+  }
+
+  if (market) {
+    url.searchParams.set("filters[market]", market);
+  }
+
+  if (commodity) {
+    url.searchParams.set("filters[commodity]", commodity);
   }
 
   const response = await fetch(url);
@@ -47,4 +61,24 @@ export const fetchMandiPrices = async ({
   }
 
   return await response.json();
+};
+
+export const fetchMandiPricesForDistricts = async ({
+  state,
+  districts = [],
+  commodity,
+  limit = 100,
+} = {}) => {
+  const requests = districts.map((district) =>
+    fetchMandiPrices({
+      state,
+      district,
+      commodity,
+      limit,
+    })
+  );
+
+  const responses = await Promise.all(requests);
+
+  return responses.flatMap((data) => data.records || []);
 };

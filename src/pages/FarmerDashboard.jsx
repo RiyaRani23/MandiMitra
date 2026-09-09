@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import MarketPriceSection from "../components/farmer/MarketPriceSection";
 import SellProduceForm from "../components/farmer/SellProduceForm";
+import BestSellingOption from "../components/farmer/BestSellingOption";
 
 const FarmerDashboard = () => {
   const [sellingStep, setSellingStep] = useState(1);
@@ -15,14 +15,14 @@ const FarmerDashboard = () => {
   };
 
   const handleProduceSubmit = (data) => {
-  setProduceData(data);
-  setSellingStep(2);
+    setProduceData(data);
+    setSellingStep(2);
 
-  console.log("Submitted Produce:", data);
-};
+    console.log("Submitted Produce:", data);
+  };
 
   return (
-    <div className="px-5 py-4 md:px-7 md:py-5">
+    <div className="px-5 py-4 md:px-7 md:py-5 mt-10">
       {/* Dashboard Header */}
       <div className="mb-6 rounded-2xl bg-gradient-to-r from-green-800 to-green-600 px-6 py-5 text-white shadow-sm md:px-7">
         <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-green-100">
@@ -160,11 +160,14 @@ const FarmerDashboard = () => {
           </p>
         </div>
 
-        <SellProduceForm onSubmit={handleProduceSubmit} />
-      </section>
+        {sellingStep === 1 && (
+          <SellProduceForm onSubmit={handleProduceSubmit} />
+        )}
 
-      {/* Market Prices */}
-      <MarketPriceSection />
+        {sellingStep === 2 && produceData && (
+          <BestSellingOption produceData={produceData} />
+        )}
+      </section>
     </div>
   );
 };
