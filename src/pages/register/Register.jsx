@@ -1,180 +1,103 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Sprout, Handshake, Building2 } from "lucide-react";
+import { logoImg } from "../../assets/assets.js";
 
 function Register() {
-  const [role, setRole] = useState("");
-
-  const navigate = useNavigate();
-
-  const handleContinue = () => {
-    if (role === "farmer") {
-      navigate("/register/farmer");
-    } else if (role === "buyer") {
-      navigate("/register/buyer");
-    } else if (role === "fpo") {
-      navigate("/register/fpo");
-    }
-  };
+  const roles = [
+    {
+      title: "Farmer",
+      description: "Find better prices, connect with buyers and sell your produce with confidence.",
+      icon: <Sprout size={32} strokeWidth={1.8} />,
+      path: "/register/farmer",
+    },
+    {
+      title: "Buyer",
+      description: "Discover verified farmers and FPOs and source quality agricultural produce.",
+      icon: <Handshake size={32} strokeWidth={1.8} />,
+      path: "/register/buyer",
+    },
+    {
+      title: "FPO",
+      description: "Aggregate farmer produce and connect directly with reliable bulk buyers.",
+      icon: <Building2 size={32} strokeWidth={1.8} />,
+      path: "/register/fpo",
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
+    <div className="min-h-screen bg-[#f5f1e8] px-6 py-5">
+      <div className="px-20 pb-10">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#f7941d]">
+            <span className="text-xl text-white"><img src={logoImg} className="rounded-md" /></span>
+          </div>
+
+          <div className="leading-none">
+            <span className="text-[19px] font-bold text-green-700">
+              Mandi
+            </span>
+            <span className="text-[19px] font-bold text-[#f7941d]">
+              Mitra
+            </span>
+
+            <div className="mt-1 text-[10px] tracking-[0.5px] text-grey-200/80">
+              SAHI MANDI, SAHI DAAM
+            </div>
+          </div>
+        </Link>
+      </div>
 
       {/* Header */}
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
-        <Link to="/" className="text-2xl font-bold text-green-700">
-          MandiMitra
-        </Link>
+      <div className="text-center">
+        <p className="text-[11px] font-bold tracking-[0.25em] text-[#ee9c45]">
+          JOIN MANDIMITRA
+        </p>
 
-        <p className="text-sm text-gray-600">
-          Already have an account?{" "}
-          <Link
-            to="/login"
-            className="font-semibold text-green-700 hover:text-green-800"
-          >
-            Login
-          </Link>
+        <h1 className="mx-auto mt-4 max-w-2xl text-5xl font-medium leading-[1.05] tracking-[-0.04em] text-[#153d32]">
+          How would you like to
+          <br />
+          continue?
+        </h1>
+
+        <p className="mt-5 text-[16px] text-[#58706b]">
+          Select your role to access your MandiMitra account.
         </p>
       </div>
 
-      {/* Main */}
-      <main className="flex min-h-[calc(100vh-90px)] items-center justify-center px-6 py-10">
+      {/* Role Cards */}
+      <div className="mx-auto mt-11 grid max-w-6xl grid-cols-1 gap-5 md:grid-cols-3">
+        {roles.map((role) => (
+          <Link
+            key={role.title}
+            to={role.path}
+            className="group rounded-[22px] border border-[#d8dfd8] bg-white px-8 py-7 text-center shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+          >
+            {/* Icon */}
+            <div className="mx-auto flex h-[72px] w-[72px] items-center justify-center rounded-[20px] bg-[#e8f0e5] text-[#24734f] transition-colors group-hover:bg-[#dcebd8]">
+              {role.icon}
+            </div>
 
-        <div className="w-full max-w-5xl rounded-3xl bg-white p-7 shadow-xl sm:p-10 md:p-12">
+            {/* Title */}
+            <h2 className="mt-7 text-[27px] font-medium text-[#123b30]">
+              {role.title}
+            </h2>
 
-          {/* Heading */}
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold tracking-wider text-green-600">
-              JOIN MANDIMITRA
+            {/* Description */}
+            <p className="mt-3 text-sm leading-6 text-[#6c7c78]">
+              {role.description}
             </p>
 
-            <h1 className="mt-3 text-3xl font-bold text-gray-900 sm:text-4xl">
-              How do you want to use MandiMitra?
-            </h1>
-
-            <p className="mt-3 text-gray-500">
-              Select your role to create an account tailored to your needs.
-            </p>
-          </div>
-
-          {/* Role Cards */}
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-
-            {/* Farmer */}
-            <button
-              onClick={() => setRole("farmer")}
-              className={`rounded-2xl border-2 p-6 text-left transition duration-200 hover:-translate-y-1 hover:shadow-lg ${
-                role === "farmer"
-                  ? "border-green-500 bg-green-50 shadow-md"
-                  : "border-gray-100 bg-white"
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-green-100 text-3xl">
-                  👨‍🌾
-                </div>
-
-                {role === "farmer" && (
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-600 text-sm text-white">
-                    ✓
-                  </div>
-                )}
-              </div>
-
-              <h2 className="mt-6 text-xl font-bold text-gray-900">
-                Farmer
-              </h2>
-
-              <p className="mt-2 text-sm leading-6 text-gray-500">
-                Find better prices, connect with buyers and sell your
-                produce with confidence.
-              </p>
-            </button>
-
-            {/* Buyer */}
-            <button
-              onClick={() => setRole("buyer")}
-              className={`rounded-2xl border-2 p-6 text-left transition duration-200 hover:-translate-y-1 hover:shadow-lg ${
-                role === "buyer"
-                  ? "border-blue-500 bg-blue-50 shadow-md"
-                  : "border-gray-100 bg-white"
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-3xl">
-                  🏪
-                </div>
-
-                {role === "buyer" && (
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-sm text-white">
-                    ✓
-                  </div>
-                )}
-              </div>
-
-              <h2 className="mt-6 text-xl font-bold text-gray-900">
-                Buyer
-              </h2>
-
-              <p className="mt-2 text-sm leading-6 text-gray-500">
-                Discover verified farmers and FPOs and source quality
-                agricultural produce.
-              </p>
-            </button>
-
-            {/* FPO */}
-            <button
-              onClick={() => setRole("fpo")}
-              className={`rounded-2xl border-2 p-6 text-left transition duration-200 hover:-translate-y-1 hover:shadow-lg ${
-                role === "fpo"
-                  ? "border-orange-500 bg-orange-50 shadow-md"
-                  : "border-gray-100 bg-white"
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-100 text-3xl">
-                  🏢
-                </div>
-
-                {role === "fpo" && (
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-sm text-white">
-                    ✓
-                  </div>
-                )}
-              </div>
-
-              <h2 className="mt-6 text-xl font-bold text-gray-900">
-                FPO
-              </h2>
-
-              <p className="mt-2 text-sm leading-6 text-gray-500">
-                Aggregate farmer produce and connect directly with
-                reliable bulk buyers.
-              </p>
-            </button>
-          </div>
-
-          {/* Continue */}
-          <div className="mx-auto mt-10 max-w-md">
-            <button
-              onClick={handleContinue}
-              disabled={!role}
-              className={`w-full rounded-xl py-3.5 font-semibold text-white shadow-lg transition ${
-                role
-                  ? "bg-green-600 shadow-green-600/20 hover:bg-green-700"
-                  : "cursor-not-allowed bg-gray-300"
-              }`}
-            >
-              Continue
-            </button>
-          </div>
-
-          {/* Login */}
-          <p className="mt-6 text-center text-sm text-gray-500">
-            By continuing, you agree to MandiMitra's terms and policies.
-          </p>
-
-        </div>
-      </main>
+            {/* Continue */}
+            <div className="mt-6 text-sm font-semibold text-[#24734f] opacity-0 transition-opacity group-hover:opacity-100">
+              Continue →
+            </div>
+          </Link>
+        ))}
+      </div>
+      <p className="mt-6 text-center text-sm text-gray-500">
+        By continuing, you agree to MandiMitra's terms and policies.
+      </p>
     </div>
   );
 }

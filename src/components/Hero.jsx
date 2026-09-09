@@ -1,23 +1,80 @@
+import { Link } from "react-router-dom";
+
 function Hero() {
   return (
-    <section className="bg-green-50 px-8 py-20 text-center">
-      <h1 className="text-5xl font-bold text-gray-900">
-        Sahi Mandi, Sahi Daam.
-      </h1>
+    <section className="relative h-[595px] overflow-hidden">
 
-      <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
-        MandiMitra connects farmers, buyers and FPOs
-        to make agricultural trading simpler, smarter and more transparent.
-      </p>
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/images/farmer-hero.jpg')",
+        }}
+      />
 
-      <div className="mt-8 flex justify-center gap-4">
-        <button className="rounded-lg bg-green-600 px-6 py-3 font-semibold text-white hover:bg-green-700">
-          Get Started
-        </button>
+      {/* Dark Green Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0b3526]/95 via-[#174a36]/65 to-transparent" />
 
-        <button className="rounded-lg border border-green-600 px-6 py-3 font-semibold text-green-700 hover:bg-green-100">
-          Explore Market
-        </button>
+      {/* Slight bottom darkening */}
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#12382a]/70 to-transparent" />
+
+      {/* Hero Content */}
+      <div className="relative z-10 mx-20 flex h-full max-w-[1350px] items-center px-8">
+
+        <div className="max-w-[550px] pt-16">
+
+          {/* Small Label */}
+          <div className="mb-5 flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-[#52d273]" />
+
+            <span className="text-[10px] font-bold tracking-[2px] text-[#f7941d]">
+              EMPOWERING INDIA'S FARMERS
+            </span>
+          </div>
+
+          {/* Heading */}
+          <h1 className="text-[54px] font-light leading-[1.17] tracking-[-2px] text-white md:text-[60px]">
+            Sahi Daam,
+            <br />
+            Sahi Faisla,
+            <br />
+            Saksham Kisan.
+          </h1>
+
+          {/* Description */}
+          <p className="mt-5 max-w-[400px] text-[14px] leading-6 text-white/85">
+            Discover better markets. Compare prices. Sell with
+            confidence.
+          </p>
+
+          {/* Buttons */}
+          <div className="mt-6 flex items-center gap-3">
+
+            <Link
+              to="/market-prices"
+              className="group flex items-center gap-3 rounded-full bg-[#168451] px-5 py-3 text-[12px] font-semibold text-white transition hover:bg-[#116d43]"
+            >
+              Explore Mandi Prices
+
+              <span className="text-base transition-transform group-hover:translate-x-1">
+                →
+              </span>
+            </Link>
+
+            <Link
+              to="/register"
+              className="group flex items-center gap-3 rounded-full border border-white/70 px-5 py-3 text-[12px] font-semibold text-white transition hover:bg-white hover:text-gray-900"
+            >
+              Join MandiMitra
+
+              <span className="text-base transition-transform group-hover:translate-x-1">
+                →
+              </span>
+            </Link>
+
+          </div>
+
+        </div>
       </div>
     </section>
   );
