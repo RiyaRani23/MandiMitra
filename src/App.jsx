@@ -1,13 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// Pages
 import Home from "./pages/Home";
-
 import Login from "./pages/Login";
 import Register from "./pages/register/Register";
 import FarmerRegister from "./pages/register/FarmerRegister";
 import BuyerRegister from "./pages/register/BuyerRegister";
 import FPORegister from "./pages/register/FPORegister";
-
 import VerificationPending from "./pages/register/VerificationPending";
 import OTPVerification from "./pages/OTPVerification";
 
@@ -15,7 +14,7 @@ import FarmerDashboard from "./pages/FarmerDashboard";
 import BuyerDashboard from "./pages/BuyerDashboard";
 import FPODashboard from "./pages/FPODashboard";
 
-// Farmer section
+// Farmer
 import FarmerLayout from "./components/farmer/FarmerLayout";
 import MarketPrices from "./pages/farmer/MarketPrices";
 import SellProduce from "./pages/farmer/SellProduce";
@@ -24,6 +23,7 @@ import FarmerPayments from "./pages/farmer/FarmerPayments";
 import FPOs from "./pages/farmer/FPOs";
 import FarmerDeals from "./pages/farmer/FarmerDeals";
 
+// Buyer
 import BuyerLayout from "./components/buyer/BuyerLayout";
 import BuyerMarketPrices from "./pages/buyer/BuyerMarketPrices";
 import BuyerRequirements from "./pages/buyer/BuyerRequirements";
@@ -36,45 +36,121 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+
         {/* Home */}
         <Route path="/" element={<Home />} />
 
         {/* Authentication */}
         <Route path="/login" element={<Login />} />
-
         <Route path="/register" element={<Register />} />
         <Route path="/register/farmer" element={<FarmerRegister />} />
         <Route path="/register/buyer" element={<BuyerRegister />} />
         <Route path="/register/fpo" element={<FPORegister />} />
 
-        <Route path="/verification-pending" element={<VerificationPending />} />
+        <Route
+          path="/verification-pending"
+          element={<VerificationPending />}
+        />
 
-        <Route path="/otp-verification" element={<OTPVerification />} />
+        <Route
+          path="/otp-verification"
+          element={<OTPVerification />}
+        />
 
-        {/* Farmer */}
+        {/* ================= FARMER ================= */}
         <Route path="/farmer" element={<FarmerLayout />}>
+
+          {/* /farmer */}
           <Route index element={<FarmerDashboard />} />
-          <Route path="market-prices" element={<MarketPrices />} />
-          <Route path="sell-produce" element={<SellProduce />} />
-          <Route path="find-buyers" element={<FindBuyers />} />
-          <Route path="fpos" element={<FPOs />} />
-          <Route path="my-deals" element={<FarmerDeals />} />
-          <Route path="payments" element={<FarmerPayments />} />
-          
+
+          {/* /farmer/market-prices */}
+          <Route
+            path="market-prices"
+            element={<MarketPrices />}
+          />
+
+          {/* /farmer/sell-produce */}
+          <Route
+            path="sell-produce"
+            element={<SellProduce />}
+          />
+
+          {/* /farmer/find-buyers */}
+          <Route
+            path="find-buyers"
+            element={<FindBuyers />}
+          />
+
+          {/* /farmer/fpos */}
+          <Route
+            path="fpos"
+            element={<FPOs />}
+          />
+
+          {/* /farmer/my-deals */}
+          <Route
+            path="my-deals"
+            element={<FarmerDeals />}
+          />
+
+          {/* /farmer/payments */}
+          <Route
+            path="payments"
+            element={<FarmerPayments />}
+          />
+
         </Route>
 
+        {/* ================= BUYER ================= */}
         <Route path="/buyer" element={<BuyerLayout />}>
+
+          {/* /buyer */}
           <Route index element={<BuyerDashboard />} />
-          <Route path="market-prices" element={<BuyerMarketPrices />} />
-          <Route path="requirements" element={<BuyerRequirements />} />
-          <Route path="find-farmers" element={<FindFarmers />} />
-          <Route path="offers" element={<BuyerOffers />} />
-          <Route path="deals" element={<BuyerDeals />} />
-          <Route path="payments" element={<BuyerPayments />} />
+
+          {/* /buyer/market-prices */}
+          <Route
+            path="market-prices"
+            element={<BuyerMarketPrices />}
+          />
+
+          {/* /buyer/requirements */}
+          <Route
+            path="requirements"
+            element={<BuyerRequirements />}
+          />
+
+          {/* /buyer/find-farmers */}
+          <Route
+            path="find-farmers"
+            element={<FindFarmers />}
+          />
+
+          {/* /buyer/offers */}
+          <Route
+            path="offers"
+            element={<BuyerOffers />}
+          />
+
+          {/* /buyer/deals */}
+          <Route
+            path="deals"
+            element={<BuyerDeals />}
+          />
+
+          {/* /buyer/payments */}
+          <Route
+            path="payments"
+            element={<BuyerPayments />}
+          />
+
         </Route>
 
-        {/* FPO */}
-        <Route path="/fpo" element={<FPODashboard />} />
+        {/* ================= FPO ================= */}
+        <Route
+          path="/fpo"
+          element={<FPODashboard />}
+        />
+
       </Routes>
     </BrowserRouter>
   );

@@ -1,68 +1,83 @@
 function HowItWorks() {
+  const steps = [
+    {
+      number: "01",
+      title: "List Your Produce",
+      description:
+        "Provide crop, quantity, quality and location details.",
+    },
+    {
+      number: "02",
+      title: "Discover Opportunities",
+      description:
+        "Compare prices, buyers and available selling options.",
+    },
+    {
+      number: "03",
+      title: "Connect & Negotiate",
+      description:
+        "Connect with verified buyers or FPOs and receive offers.",
+    },
+    {
+      number: "04",
+      title: "Complete the Deal",
+      description:
+        "Confirm the deal, arrange logistics and track payment.",
+    },
+  ];
+
   return (
-    <section className="bg-gray-50 px-8 py-20 scroll-mt-21.5" id="how-it-works">
-      <div className="mx-auto max-w-6xl">
-        <h2 className="text-center text-3xl font-bold text-gray-900">
-          How MandiMitra Works
-        </h2>
+    <section
+      id="how-it-works"
+      className="bg-[#f8f8f3] px-8 py-20 scroll-mt-[86px]"
+    >
+      <div className="mx-20 max-w-[1350px]">
 
-        <div className="mt-12 grid gap-8 md:grid-cols-4">
-          <div className="rounded-2xl bg-white p-6 text-center shadow-sm">
-            <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-600 font-bold text-white">
-              1
+        {/* Heading */}
+        <div className="mx-auto max-w-[650px] text-center">
+          <p className="text-[11px] font-bold tracking-[3px] text-[#f7941d]">
+            HOW IT WORKS
+          </p>
+
+          <h2 className="mt-4 text-5xl font-normal leading-[1.08] tracking-[-2px] text-[#163b31] md:text-6xl">
+            From Produce
+            <br />
+            <span className="text-[#d97822]">
+              to Better Deals.
             </span>
+          </h2>
 
-            <h3 className="mt-5 text-lg font-bold">
-              List Your Produce
-            </h3>
-
-            <p className="mt-3 text-sm text-gray-600">
-              Provide crop, quantity, quality and location details.
-            </p>
-          </div>
-
-          <div className="rounded-2xl bg-white p-6 text-center shadow-sm">
-            <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-600 font-bold text-white">
-              2
-            </span>
-
-            <h3 className="mt-5 text-lg font-bold">
-              Discover Opportunities
-            </h3>
-
-            <p className="mt-3 text-sm text-gray-600">
-              Compare prices, buyers and available selling options.
-            </p>
-          </div>
-
-          <div className="rounded-2xl bg-white p-6 text-center shadow-sm">
-            <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-600 font-bold text-white">
-              3
-            </span>
-
-            <h3 className="mt-5 text-lg font-bold">
-              Connect & Negotiate
-            </h3>
-
-            <p className="mt-3 text-sm text-gray-600">
-              Connect with verified buyers or FPOs and receive offers.
-            </p>
-          </div>
-
-          <div className="rounded-2xl bg-white p-6 text-center shadow-sm">
-            <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-600 font-bold text-white">
-              4
-            </span>
-
-            <h3 className="mt-5 text-lg font-bold">
-              Complete the Deal
-            </h3>
-
-            <p className="mt-3 text-sm text-gray-600">
-              Confirm the deal, arrange logistics and track payment.
-            </p>
-          </div>
+          <p className="mt-6 max-w-[580px] text-[15px] leading-7 text-[#476579]">
+            MandiMitra makes selling your produce simple, transparent
+            and more rewarding — from finding the right opportunity
+            to completing the deal.
+          </p>
         </div>
+
+        {/* Steps */}
+        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {steps.map((step) => (
+            <div
+              key={step.number}
+              className="group rounded-2xl border border-[#dce3dc] bg-white p-6 transition duration-300 hover:-translate-y-1 hover:shadow-md"
+            >
+              {/* Number */}
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#eaf4eb] text-sm font-bold text-[#197044] transition duration-300 group-hover:bg-[#197044] group-hover:text-white">
+                {step.number}
+              </div>
+
+              {/* Content */}
+              <h3 className="mt-7 text-[17px] font-medium text-[#163b31]">
+                {step.title}
+              </h3>
+
+              <p className="mt-3 text-[12px] leading-5 text-[#476579]">
+                {step.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
       </div>
     </section>
   );

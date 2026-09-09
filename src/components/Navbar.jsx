@@ -81,52 +81,45 @@ function Navbar() {
           </div>
         </Link>
 
-        {/* ================= DESKTOP NAV ================= */}
-        <div className="hidden items-center gap-7 lg:flex">
-          {/* Navigation Links */}
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.path}
-              className={`relative py-2 text-[12px] font-medium transition-colors duration-200 ${
-                isActive(link.path)
-                  ? "text-[#f7941d]"
-                  : "text-white/90 hover:text-[#f7941d]"
-              }`}
+        {/* Navigation */}
+        <div className="hidden items-center gap-6 lg:flex">
+          <Link
+            to="/#how-it-works"
+            className="text-[11px] text-white/90 transition hover:text-[#f7941d]"
+          >
+            How It Works
+          </Link>
+
+          <Link
+            to="/#market-prices"
+            className="text-[11px] text-white/90 transition hover:text-[#f7941d]"
+          >
+            Market Prices
+          </Link>
+
+          <Link
+            to="/#about"
+            className="text-[11px] text-white/90 transition hover:text-[#f7941d]"
+          >
+            About
+          </Link>
+
+          {/* Language */}
+          <div className="flex items-center gap-2 text-[11px] text-white/90">
+            <select
+              className="cursor-pointer bg-transparent text-white outline-none"
+              defaultValue="English"
             >
-              {link.name}
-
-              {isActive(link.path) && (
-                <span className="absolute -bottom-1 left-0 h-[2px] w-full rounded-full bg-[#f7941d]" />
-              )}
-            </a>
-          ))}
-
-          {/* ================= LANGUAGE ================= */}
-          <div className="group relative">
-            <button className="flex items-center gap-1.5 py-2 text-[12px] font-medium text-white/90 transition hover:text-[#f7941d]">
-              <Globe2 size={14} />
-              <span>English</span>
-              <ChevronDown
-                size={13}
-                className="transition-transform duration-200 group-hover:rotate-180"
-              />
-            </button>
-
-            {/* Language Dropdown */}
-            <div className="invisible absolute right-0 top-full mt-2 w-32 translate-y-2 rounded-xl border border-gray-100 bg-white p-1.5 opacity-0 shadow-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-              <button className="w-full rounded-lg px-3 py-2 text-left text-[11px] text-gray-700 transition hover:bg-orange-50 hover:text-[#f7941d]">
+              <option value="English" className="text-black">
                 English
-              </button>
-
-              <button className="w-full rounded-lg px-3 py-2 text-left text-[11px] text-gray-700 transition hover:bg-orange-50 hover:text-[#f7941d]">
+              </option>
+              <option value="Hindi" className="text-black">
                 हिंदी
-              </button>
-
-              <button className="w-full rounded-lg px-3 py-2 text-left text-[11px] text-gray-700 transition hover:bg-orange-50 hover:text-[#f7941d]">
+              </option>
+              <option value="Marathi" className="text-black">
                 मराठी
-              </button>
-            </div>
+              </option>
+            </select>
           </div>
 
           {/* ================= LOGIN ================= */}

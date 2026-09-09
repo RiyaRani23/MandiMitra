@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 
 function Hero() {
   return (
-    <section className="relative h-[595px] overflow-hidden">
+    <section className="relative h-160 overflow-hidden">
 
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: "url('/images/farmer-hero.jpg')",
+          backgroundImage: "url('https://cdn.pixabay.com/photo/2017/08/25/05/30/in-rice-field-2679153_1280.jpg')",
         }}
       />
 
@@ -19,9 +19,9 @@ function Hero() {
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#12382a]/70 to-transparent" />
 
       {/* Hero Content */}
-      <div className="relative z-10 mx-20 flex h-full max-w-[1350px] items-center px-8">
+      <div className="relative z-10 mx-20 flex h-full max-w-350 items-center px-8">
 
-        <div className="max-w-[550px] pt-16">
+        <div className="max-w-137.5 pt-16">
 
           {/* Small Label */}
           <div className="mb-5 flex items-center gap-2">
@@ -33,7 +33,7 @@ function Hero() {
           </div>
 
           {/* Heading */}
-          <h1 className="text-[54px] font-light leading-[1.17] tracking-[-2px] text-white md:text-[60px]">
+          <h1 className="text-[60px] font-light leading-[1.17] tracking-[-2px] text-white md:text-[60px]">
             Sahi Daam,
             <br />
             Sahi Faisla,
@@ -42,9 +42,8 @@ function Hero() {
           </h1>
 
           {/* Description */}
-          <p className="mt-5 max-w-[400px] text-[14px] leading-6 text-white/85">
-            Discover better markets. Compare prices. Sell with
-            confidence.
+          <p className="mt-5 max-w-100 text-[14px] leading-6 text-white/85">
+            Discover better markets. Compare prices. Sell with confidence.
           </p>
 
           {/* Buttons */}
