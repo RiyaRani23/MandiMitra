@@ -64,6 +64,22 @@ function BuyerDashboard() {
             Manage your purchases, compare prices and connect with reliable
             farmers.
           </p>
+
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link
+              to="/buyer/requirements"
+              className="rounded-lg bg-[#123c2c] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#0d3024]"
+            >
+              Post Buying Requirement
+            </Link>
+
+            <Link
+              to="/buyer/find-farmers"
+              className="rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-[#123c2c] hover:bg-gray-50"
+            >
+              Find Farmers
+            </Link>
+          </div>
         </section>
 
         {/* Stats */}
