@@ -22,6 +22,10 @@ import MarketPrices from "./pages/farmer/MarketPrices";
 import BuyerLayout from "./components/buyer/BuyerLayout";
 import BuyerMarketPrices from "./pages/buyer/BuyerMarketPrices";
 import BuyerRequirements from "./pages/buyer/BuyerRequirements";
+import FindFarmers from "./pages/buyer/FindFarmers";
+import BuyerOffers from "./pages/buyer/BuyerOffers";
+import BuyerDeals from "./pages/buyer/BuyerDeals";
+import BuyerPayments from "./pages/buyer/BuyerPayments";
 
 function App() {
   return (
@@ -57,6 +61,10 @@ function App() {
           <Route index element={<BuyerDashboard />} />
           <Route path="market-prices" element={<BuyerMarketPrices />} />
           <Route path="requirements" element={<BuyerRequirements />} />
+          <Route path="find-farmers" element={<FindFarmers />} />
+          <Route path="offers" element={<BuyerOffers />} />
+          <Route path="deals" element={<BuyerDeals />} />
+          <Route path="payments" element={<BuyerPayments />} />
         </Route>
 
         {/* FPO */}
