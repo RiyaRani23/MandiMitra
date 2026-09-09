@@ -28,6 +28,7 @@ function Navbar() {
 
         {/* Navigation */}
         <div className="hidden items-center gap-6 lg:flex">
+          {/* How it works */}
           <Link
             to="/#how-it-works"
             className="text-[11px] text-white/90 transition hover:text-[#f7941d]"
@@ -36,14 +37,14 @@ function Navbar() {
           </Link>
 
           <Link
-            to="/market-prices"
+            to="/#market-prices"
             className="text-[11px] text-white/90 transition hover:text-[#f7941d]"
           >
             Market Prices
           </Link>
 
           <Link
-            to="/about"
+            to="/#about"
             className="text-[11px] text-white/90 transition hover:text-[#f7941d]"
           >
             About

@@ -171,7 +171,7 @@ function Footer() {
                   className="mt-0.5 shrink-0 text-[#f7941d]"
                 />
                 <span>
-                  Bihar, India
+                  Jharkhand, India
                 </span>
               </div>
 
