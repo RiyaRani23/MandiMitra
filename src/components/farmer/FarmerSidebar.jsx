@@ -1,16 +1,13 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 const FarmerSidebar = () => {
-  const [activeMenu, setActiveMenu] = useState("Dashboard");
-
   const menuItems = [
-    { name: "Dashboard", icon: "🏠" },
-    { name: "Market Prices", icon: "📊" },
-    { name: "Find Buyers", icon: "🛒" },
-    { name: "FPOs", icon: "🤝" },
-    { name: "My Deals", icon: "📦" },
-    { name: "Payments", icon: "💰" },
+    { name: "Dashboard", icon: "🏠", path: "/farmer" },
+    { name: "Market Prices", icon: "📊", path: "/farmer/market-prices" },
+    { name: "Find Buyers", icon: "🛒", path: "/farmer/find-buyers" },
+    { name: "FPOs", icon: "🤝", path: "/farmer/fpos" },
+    { name: "My Deals", icon: "📦", path: "/farmer/my-deals" },
+    { name: "Payments", icon: "💰", path: "/farmer/payments" },
   ];
 
   return (
@@ -18,22 +15,23 @@ const FarmerSidebar = () => {
       <div className="flex h-full flex-col p-4">
         <nav className="space-y-2">
           {menuItems.map((item) => (
-            <button
+            <NavLink
               key={item.name}
-              onClick={() => setActiveMenu(item.name)}
-              className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium transition ${
-                activeMenu === item.name
-                  ? "bg-green-50 text-green-700"
-                  : "text-gray-600 hover:bg-gray-50"
-              }`}
+              to={item.path}
+              className={({ isActive }) =>
+                `flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium transition ${
+                  isActive
+                    ? "bg-green-50 text-green-700"
+                    : "text-gray-600 hover:bg-gray-50"
+                }`
+              }
             >
               <span className="text-lg">{item.icon}</span>
               {item.name}
-            </button>
+            </NavLink>
           ))}
         </nav>
 
-        {/* Bottom Menu */}
         <div className="mt-auto space-y-2">
           <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50">
             <span className="text-lg">⚙️</span>
@@ -54,3 +52,4 @@ const FarmerSidebar = () => {
 };
 
 export default FarmerSidebar;
+

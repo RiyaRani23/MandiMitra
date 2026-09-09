@@ -1,6 +1,6 @@
 function HowItWorks() {
   return (
-    <section className="bg-gray-50 px-8 py-20">
+    <section className="bg-gray-50 px-8 py-20 scroll-mt-21.5" id="how-it-works">
       <div className="mx-auto max-w-6xl">
         <h2 className="text-center text-3xl font-bold text-gray-900">
           How MandiMitra Works

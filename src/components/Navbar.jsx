@@ -9,7 +9,7 @@ function Navbar() {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#f7941d]">
-            <span className="text-xl text-white"><img src={logoImg} className="rounded-md"/></span>
+            <span className="text-xl text-white"><img src={logoImg} className="rounded-xl"/></span>
           </div>
 
           <div className="leading-none">
@@ -29,7 +29,7 @@ function Navbar() {
         {/* Navigation */}
         <div className="hidden items-center gap-6 lg:flex">
           <Link
-            to="/how-it-works"
+            to="/#how-it-works"
             className="text-[11px] text-white/90 transition hover:text-[#f7941d]"
           >
             How It Works

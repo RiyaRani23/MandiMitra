@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchMandiPrices } from "../../services/mandiApi";
 import MarketPriceCard from "./MarketPriceCard";
 import MandiFilters from "./MandiFilters";
+import MarketExplorer from "./MarketExplorer";
 
 const MarketPriceSection = () => {
   const [marketPrices, setMarketPrices] = useState([]);
@@ -12,6 +13,28 @@ const MarketPriceSection = () => {
   const [selectedState, setSelectedState] = useState("Maharashtra");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedMarket, setSelectedMarket] = useState("");
+  const [showMarketExplorer, setShowMarketExplorer] = useState(false);
+
+  const refreshPrices = async () => {
+    try {
+      setLoadingPrices(true);
+      setPriceError("");
+
+      const data = await fetchMandiPrices({
+        state: selectedState,
+        district: selectedDistrict,
+        market: selectedMarket,
+        limit: 100,
+      });
+
+      setMarketPrices(data.records || []);
+    } catch (error) {
+      console.error(error);
+      setPriceError("Unable to fetch market prices.");
+    } finally {
+      setLoadingPrices(false);
+    }
+  };
 
   useEffect(() => {
     const loadPrices = async () => {
@@ -126,7 +149,7 @@ const MarketPriceSection = () => {
             </div>
 
             <button
-              onClick={() => window.location.reload()}
+              onClick={refreshPrices}
               className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-lg shadow-sm transition hover:bg-gray-50"
               title="Refresh prices"
             >
@@ -220,7 +243,7 @@ const MarketPriceSection = () => {
             </p>
 
             <button
-              onClick={() => window.location.reload()}
+              onClick={refreshPrices}
               className="mt-4 rounded-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-green-700"
             >
               Try Again
@@ -339,7 +362,10 @@ const MarketPriceSection = () => {
 
                     <div className="mt-4 grid gap-3 md:grid-cols-3">
                       {/* Nearby Markets */}
-                      <button className="group rounded-xl border border-gray-200 p-4 text-left transition hover:border-green-200 hover:bg-green-50">
+                      <button
+                        onClick={() => setShowMarketExplorer(true)}
+                        className="group rounded-xl border border-gray-200 p-4 text-left transition hover:border-green-200 hover:bg-green-50"
+                      >
                         <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-green-100 text-lg">
                           📍
                         </div>
@@ -475,6 +501,14 @@ const MarketPriceSection = () => {
           </div>
         )}
       </div>
+      {showMarketExplorer && (
+        <MarketExplorer
+          searchTerm={searchTerm}
+          marketPrices={marketPrices}
+          selectedDistrict={selectedDistrict}
+          onClose={() => setShowMarketExplorer(false)}
+        />
+      )}
     </div>
   );
 };
