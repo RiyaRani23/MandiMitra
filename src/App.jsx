@@ -1,6 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-
-import Navbar from "./components/Navbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
 
@@ -21,27 +19,17 @@ import FPODashboard from "./pages/FPODashboard";
 import FarmerLayout from "./components/farmer/FarmerLayout";
 import MarketPrices from "./pages/farmer/MarketPrices";
 
-function AppContent() {
-  const location = useLocation();
-
-  // Pages where the main Navbar should NOT appear
-  const hideNavbar =
-    location.pathname === "/login" ||
-    location.pathname === "/register" ||
-    location.pathname.startsWith("/register/") ||
-    location.pathname === "/otp-verification" ||
-    location.pathname === "/verification-pending";
-
+function App() {
   return (
-    <>
-      {!hideNavbar && <Navbar />}
-
+    <BrowserRouter>
       <Routes>
+
         {/* Home */}
         <Route path="/" element={<Home />} />
 
         {/* Authentication */}
         <Route path="/login" element={<Login />} />
+
         <Route path="/register" element={<Register />} />
         <Route path="/register/farmer" element={<FarmerRegister />} />
         <Route path="/register/buyer" element={<BuyerRegister />} />
@@ -52,14 +40,16 @@ function AppContent() {
           element={<VerificationPending />}
         />
 
-        <Route path="/otp-verification" element={<OTPVerification />} />
+        <Route
+          path="/otp-verification"
+          element={<OTPVerification />}
+        />
 
-        {/* Farmer Routes */}
+        {/* Farmer */}
         <Route path="/farmer" element={<FarmerLayout />}>
           <Route index element={<FarmerDashboard />} />
           <Route path="market-prices" element={<MarketPrices />} />
 
-          {/* Temporary routes */}
           <Route path="find-buyers" element={<FarmerDashboard />} />
           <Route path="fpos" element={<FarmerDashboard />} />
           <Route path="my-deals" element={<FarmerDashboard />} />
@@ -71,15 +61,8 @@ function AppContent() {
 
         {/* FPO */}
         <Route path="/fpo" element={<FPODashboard />} />
-      </Routes>
-    </>
-  );
-}
 
-function App() {
-  return (
-    <BrowserRouter>
-      <AppContent />
+      </Routes>
     </BrowserRouter>
   );
 }

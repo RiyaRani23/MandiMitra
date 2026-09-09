@@ -4,10 +4,12 @@ import HowItWorks from "../components/HowItWorks";
 import CTA from "../components/CTA";
 import Footer from "../components/Footer";
 import About from "../components/About";
+import Navbar from "../components/Navbar";
 
 function Home() {
   return (
     <div>
+      <Navbar/> 
       <main>
         <Hero/>
         <About/>
