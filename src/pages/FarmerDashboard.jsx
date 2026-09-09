@@ -1,11 +1,37 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { fetchMandiPrices } from "../services/mandiApi";
 import SellProduceForm from "../components/farmer/SellProduceForm";
 import BestSellingOption from "../components/farmer/BestSellingOption";
+import { Link } from "react-router-dom";
 
 const FarmerDashboard = () => {
   const [sellingStep, setSellingStep] = useState(1);
   const [produceData, setProduceData] = useState(null);
   const sellSectionRef = useRef(null);
+
+  const [marketPrices, setMarketPrices] = useState([]);
+  const [loadingPrices, setLoadingPrices] = useState(true);
+
+  useEffect(() => {
+    const loadMarketPrices = async () => {
+      try {
+        const data = await fetchMandiPrices({
+          state: "Maharashtra",
+          district: "",
+          market: "",
+          limit: 100,
+        });
+
+        setMarketPrices(data.records || []);
+      } catch (error) {
+        console.error("Failed to load farmer market prices:", error);
+      } finally {
+        setLoadingPrices(false);
+      }
+    };
+
+    loadMarketPrices();
+  }, []);
 
   const handleSellProduce = () => {
     sellSectionRef.current?.scrollIntoView({
@@ -92,6 +118,63 @@ const FarmerDashboard = () => {
               After estimated selling costs
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Live Mandi Prices */}
+      <section className="rounded-2xl border border-gray-200 bg-white p-5">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-lg font-semibold text-[#123c2c]">
+              Live Mandi Prices
+            </h2>
+            <p className="mt-1 text-xs text-gray-500">
+              Latest government mandi prices
+            </p>
+          </div>
+
+          <Link
+            to="/farmer/market-prices"
+            className="text-xs font-medium text-[#197044] hover:underline"
+          >
+            View All
+          </Link>
+        </div>
+
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {loadingPrices
+            ? [1, 2, 3, 4].map((item) => (
+                <div
+                  key={item}
+                  className="animate-pulse rounded-xl bg-[#f6f8f5] p-4"
+                >
+                  <div className="h-4 w-24 rounded bg-gray-200" />
+                  <div className="mt-2 h-3 w-32 rounded bg-gray-200" />
+                  <div className="mt-5 h-6 w-20 rounded bg-gray-200" />
+                </div>
+              ))
+            : marketPrices.slice(0, 4).map((item, index) => (
+                <div
+                  key={`${item.commodity}-${item.market}-${index}`}
+                  className="rounded-xl bg-[#f6f8f5] p-4"
+                >
+                  <p className="text-sm font-medium text-gray-800">
+                    {item.commodity}
+                  </p>
+
+                  <p className="mt-1 truncate text-xs text-gray-500">
+                    📍 {item.market} Mandi
+                  </p>
+
+                  <div className="mt-4">
+                    <span className="text-lg font-semibold text-[#123c2c]">
+                      ₹{Number(item.modal_price).toLocaleString("en-IN")}
+                    </span>
+
+                    <span className="ml-1 text-xs text-gray-500">/q</span>
+                  </div>
+                </div>
+              ))}
         </div>
       </section>
 
