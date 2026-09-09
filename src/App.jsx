@@ -21,6 +21,7 @@ import MarketPrices from "./pages/farmer/MarketPrices";
 
 import BuyerLayout from "./components/buyer/BuyerLayout";
 import BuyerMarketPrices from "./pages/buyer/BuyerMarketPrices";
+import BuyerRequirements from "./pages/buyer/BuyerRequirements";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
         <Route path="/buyer" element={<BuyerLayout />}>
           <Route index element={<BuyerDashboard />} />
           <Route path="market-prices" element={<BuyerMarketPrices />} />
+          <Route path="requirements" element={<BuyerRequirements />} />
         </Route>
 
         {/* FPO */}
