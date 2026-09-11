@@ -8,9 +8,11 @@ const FarmerLayout = () => {
       <FarmerNavbar />
       <FarmerSidebar />
 
-      <main className="pt-4 md:ml-64">
-        <Outlet />
-      </main>
+      <div className="pt-15 md:ml-64">
+        <main>
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 };

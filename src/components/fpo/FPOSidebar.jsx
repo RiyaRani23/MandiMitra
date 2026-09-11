@@ -73,11 +73,11 @@ const FPOSidebar = () => {
       <div className="flex h-20 shrink-0 items-center border-b border-white/10 px-6">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">
-            Mandi<span className="text-orange-400">Mitra</span>
+            FPO<span className="text-green-400"> PORTAL</span>
           </h1>
 
           <p className="mt-0.5 text-xs text-green-100">
-            FPO Dashboard
+            Mandi<span className="text-orange-400"> Mitra</span>
           </p>
         </div>
       </div>

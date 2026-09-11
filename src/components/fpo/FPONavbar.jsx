@@ -20,10 +20,7 @@ function FPONavbar() {
   return (
     <nav className="relative flex h-16 items-center justify-between border-b bg-white px-6">
       {/* Logo */}
-      <Link
-        to="/fpo/dashboard"
-        className="flex items-center gap-3"
-      >
+      <Link to="/fpo/dashboard" className="flex items-center gap-3">
         <img
           src={logo}
           alt="MandiMitra"
@@ -31,13 +28,10 @@ function FPONavbar() {
         />
 
         <div>
-          <h1 className="text-lg font-bold text-green-700">
-            MandiMitra
+          <h1 className="text-xl font-bold">
+            <span className="text-green-700">Mandi</span>
+            <span className="text-[#f7941d]">Mitra</span>
           </h1>
-
-          <p className="text-xs text-gray-500">
-            FPO Portal
-          </p>
         </div>
       </Link>
 
@@ -49,13 +43,9 @@ function FPONavbar() {
           className="flex items-center gap-3 rounded-xl px-2 py-1.5 transition hover:bg-gray-50"
         >
           <div className="hidden text-right sm:block">
-            <p className="text-sm font-semibold text-gray-800">
-              FPO Admin
-            </p>
+            <p className="text-sm font-semibold text-gray-800">FPO Admin</p>
 
-            <p className="text-xs text-gray-500">
-              Verified FPO
-            </p>
+            <p className="text-xs text-gray-500">Verified FPO</p>
           </div>
 
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-green-100 font-semibold text-green-700">

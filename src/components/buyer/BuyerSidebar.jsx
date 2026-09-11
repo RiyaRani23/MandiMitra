@@ -33,12 +33,13 @@ function BuyerSidebar({ isOpen, onClose }) {
       <div className="flex h-20 items-center justify-between border-b border-white/10 px-6">
         <div>
           <h1 className="text-xl font-bold">
-            <span className="text-white">Mandi</span>
-            <span className="text-[#f7941d]">Mitra</span>
+            <span className="text-white">BUYER</span>
+            <span className="text-green-500"> PORTAL</span>
           </h1>
 
           <p className="mt-1 text-[9px] tracking-[2px] text-white/50">
-            BUYER PORTAL
+            <span className="text-white">Mandi</span>
+            <span className="text-[#f7941d]"> Mitra</span>
           </p>
         </div>
 

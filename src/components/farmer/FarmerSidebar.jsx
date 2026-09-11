@@ -72,25 +72,22 @@ function FarmerSidebar({ isOpen, onClose }) {
         lg:translate-x-0`}
     >
       {/* Logo */}
-      <div className="flex h-20 items-center justify-between border-b border-white/10 px-6">
-        <div>
-          <h1 className="text-xl font-bold">
-            <span className="text-white">Mandi</span>
-            <span className="text-[#f7941d]">Mitra</span>
-          </h1>
+      <div className="mb-4 px-5 pt-6">
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-1 rounded-full bg-[#f7941d]" />
 
-          <p className="mt-1 text-[9px] tracking-[2px] text-white/50">
-            FARMER PORTAL
-          </p>
+          <div>
+            <h1 className="text-lg font-bold tracking-wide">
+              <span className="text-white">FARMER</span>
+              <span className="text-[#f7941d]"> PORTAL</span>
+            </h1>
+
+            <p className="mt-1 text-[10px] tracking-[1.8px] text-white/50">
+              <span className="text-grey">Mandi</span>
+              <span className="text-green-500"> Mitra</span>
+            </p>
+          </div>
         </div>
-
-        <button
-          type="button"
-          onClick={onClose}
-          className="rounded-lg p-2 text-white/70 hover:bg-white/10 lg:hidden"
-        >
-          <X size={20} />
-        </button>
       </div>
 
       {/* Navigation */}
