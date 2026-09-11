@@ -46,6 +46,8 @@ import AddFarmer from "./pages/fpo/AddFarmer";
 import FPOProfile from "./pages/fpo/Profile";
 import BuyerProfile from "./pages/buyer/BuyerProfile";
 
+// Admin
+import AdminLogin from "./pages/admin/AdminLogin";
 function App() {
   return (
     <BrowserRouter>
@@ -129,6 +131,9 @@ function App() {
           <Route path="payments" element={<FPOPayments />} />
           <Route path="profile" element={<FPOProfile />} />
         </Route>
+
+        // Admin
+        <Route path="/admin/login" element={<AdminLogin />} />
       </Routes>
     </BrowserRouter>
   );
