@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   Users,
@@ -7,7 +7,8 @@ import {
   ClipboardList,
   Handshake,
   Wallet,
-  User,
+  UserPlus,
+  LogOut,
 } from "lucide-react";
 
 const menuItems = [
@@ -20,6 +21,11 @@ const menuItems = [
     name: "Approved Farmers",
     path: "/fpo/approved-farmers",
     icon: Users,
+  },
+  {
+    name: "Add Farmer",
+    path: "/fpo/add-farmer",
+    icon: UserPlus,
   },
   {
     name: "Produce Inventory",
@@ -46,40 +52,50 @@ const menuItems = [
     path: "/fpo/payments",
     icon: Wallet,
   },
-  {
-    name: "Profile",
-    path: "/fpo/profile",
-    icon: User,
-  },
 ];
 
-function FPOSidebar() {
-  return (
-    <aside className="w-64  bg-[#123c2c] border-r">
-      <div className="p-6">
-        <h2 className="text-xl font-bold">
-          <span className="text-white">Mandi</span>
-          <span className="text-orange-500">Mitra</span>
-        </h2>
+const FPOSidebar = () => {
+  const navigate = useNavigate();
 
-        <p className="text-xs text-white">FPO Dashboard</p>
+  const handleLogout = () => {
+    // FUTURE BACKEND:
+    // Clear authentication/session data here
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/login");
+  };
+
+  return (
+    <aside className="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col bg-[#123c2c] text-white">
+      {/* Logo */}
+      <div className="flex h-20 shrink-0 items-center border-b border-white/10 px-6">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">
+            Mandi<span className="text-orange-400">Mitra</span>
+          </h1>
+
+          <p className="mt-0.5 text-xs text-green-100">
+            FPO Dashboard
+          </p>
+        </div>
       </div>
 
-      <nav className="px-3 space-y-1">
+      {/* Navigation */}
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
         {menuItems.map((item) => {
           const Icon = item.icon;
 
           return (
             <NavLink
-              key={item.name}
+              key={item.path}
               to={item.path}
               className={({ isActive }) =>
-                `flex items-center gap-3 rounded-lg px-4 py-3
-                text-sm font-medium transition
-                ${
+                `flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${
                   isActive
                     ? "bg-green-50 text-green-700"
-                    : "text-white hover:bg-[#1a5d4a]"
+                    : "text-green-50 hover:bg-white/10 hover:text-white"
                 }`
               }
             >
@@ -89,8 +105,20 @@ function FPOSidebar() {
           );
         })}
       </nav>
+
+      {/* Logout - Always Visible */}
+      <div className="shrink-0 border-t border-white/10 p-3">
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-green-50 transition hover:bg-red-500/10 hover:text-red-300"
+        >
+          <LogOut size={19} />
+          <span>Logout</span>
+        </button>
+      </div>
     </aside>
   );
-}
+};
 
 export default FPOSidebar;

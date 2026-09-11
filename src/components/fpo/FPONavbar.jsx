@@ -1,11 +1,29 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ChevronDown, User, LogOut } from "lucide-react";
 import logo from "../../assets/logo.jpeg";
 
 function FPONavbar() {
+  const [showProfile, setShowProfile] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // FUTURE BACKEND:
+    // Clear authentication/session data here
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/login");
+  };
+
   return (
-    <nav className="flex h-16 items-center justify-between border-b bg-white px-6">
-      
-      <Link to="/fpo/dashboard" className="flex items-center gap-3">
+    <nav className="relative flex h-16 items-center justify-between border-b bg-white px-6">
+      {/* Logo */}
+      <Link
+        to="/fpo/dashboard"
+        className="flex items-center gap-3"
+      >
         <img
           src={logo}
           alt="MandiMitra"
@@ -23,22 +41,58 @@ function FPONavbar() {
         </div>
       </Link>
 
-      <div className="flex items-center gap-3">
-        <div className="hidden text-right sm:block">
-          <p className="text-sm font-semibold text-gray-800">
-            FPO Admin
-          </p>
+      {/* Profile */}
+      <div className="relative">
+        <button
+          type="button"
+          onClick={() => setShowProfile(!showProfile)}
+          className="flex items-center gap-3 rounded-xl px-2 py-1.5 transition hover:bg-gray-50"
+        >
+          <div className="hidden text-right sm:block">
+            <p className="text-sm font-semibold text-gray-800">
+              FPO Admin
+            </p>
 
-          <p className="text-xs text-gray-500">
-            Verified FPO
-          </p>
-        </div>
+            <p className="text-xs text-gray-500">
+              Verified FPO
+            </p>
+          </div>
 
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-green-100 font-semibold text-green-700">
-          F
-        </div>
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-green-100 font-semibold text-green-700">
+            F
+          </div>
+
+          <ChevronDown
+            size={16}
+            className={`text-gray-500 transition-transform ${
+              showProfile ? "rotate-180" : ""
+            }`}
+          />
+        </button>
+
+        {/* Dropdown */}
+        {showProfile && (
+          <div className="absolute right-0 top-12 z-50 w-48 rounded-xl border border-gray-100 bg-white p-2 shadow-lg">
+            <Link
+              to="/fpo/profile"
+              onClick={() => setShowProfile(false)}
+              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-gray-700 transition hover:bg-gray-50"
+            >
+              <User size={17} />
+              <span>My Profile</span>
+            </Link>
+
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-red-600 transition hover:bg-red-50"
+            >
+              <LogOut size={17} />
+              <span>Logout</span>
+            </button>
+          </div>
+        )}
       </div>
-
     </nav>
   );
 }

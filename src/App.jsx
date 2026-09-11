@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { Navigate } from "react-router-dom";
 // Pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -22,6 +22,8 @@ import FindBuyers from "./pages/farmer/FindBuyers";
 import FarmerPayments from "./pages/farmer/FarmerPayments";
 import FPOs from "./pages/farmer/FPOs";
 import FarmerDeals from "./pages/farmer/FarmerDeals";
+import FarmerProfile from "./pages/farmer/FarmerProfile";
+import FarmerSettings from "./pages/farmer/FarmerSettings";
 
 // Buyer
 import BuyerLayout from "./components/buyer/BuyerLayout";
@@ -37,9 +39,12 @@ import FPOLayout from "./components/fpo/FPOLayout";
 import FPOMarketPrices from "./pages/fpo/MarketPrices";
 import ApprovedFarmers from "./pages/fpo/ApprovedFarmers";
 import Inventory from "./pages/fpo/Inventory";
-import FPOBuyerRequirements from "./pages/fpo/FPOBuyerRequirements";
+import FPOBuyerRequirements from "./pages/fpo/BuyerRequirements";
 import FPODeals from "./pages/fpo/Deals";
 import FPOPayments from "./pages/fpo/Payments";
+import AddFarmer from "./pages/fpo/AddFarmer";
+import FPOProfile from "./pages/fpo/Profile";
+import BuyerProfile from "./pages/buyer/BuyerProfile";
 
 function App() {
   return (
@@ -81,6 +86,9 @@ function App() {
 
           {/* /farmer/payments */}
           <Route path="payments" element={<FarmerPayments />} />
+          <Route path="profile" element={<FarmerProfile />} />
+          <Route path="settings" element={<FarmerSettings />} />
+
         </Route>
 
         {/* ================= BUYER ================= */}
@@ -105,17 +113,21 @@ function App() {
 
           {/* /buyer/payments */}
           <Route path="payments" element={<BuyerPayments />} />
+          <Route path="profile" element={<BuyerProfile />} />
         </Route>
 
         {/* ================= FPO ================= */}
         <Route path="/fpo" element={<FPOLayout />}>
+          <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<FPODashboard />} />
           <Route path="market-prices" element={<FPOMarketPrices />} />
           <Route path="approved-farmers" element={<ApprovedFarmers />} />
+          <Route path="add-farmer" element={<AddFarmer />} />
           <Route path="inventory" element={<Inventory />} />
           <Route path="buyer-requirements" element={<FPOBuyerRequirements />} />
           <Route path="deals" element={<FPODeals />} />
           <Route path="payments" element={<FPOPayments />} />
+          <Route path="profile" element={<FPOProfile />} />
         </Route>
       </Routes>
     </BrowserRouter>

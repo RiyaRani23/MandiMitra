@@ -10,13 +10,17 @@ import {
   LogOut,
   X,
 } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function FarmerSidebar({ isOpen, onClose }) {
+  const navigate = useNavigate();
+
   const menuItems = [
     {
       name: "Dashboard",
       icon: LayoutDashboard,
       path: "/farmer",
+      end: true,
     },
     {
       name: "Market Prices",
@@ -50,6 +54,16 @@ function FarmerSidebar({ isOpen, onClose }) {
     },
   ];
 
+  const handleLogout = () => {
+    // FUTURE BACKEND:
+    // Clear authentication/session data here
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/login");
+  };
+
   return (
     <aside
       className={`fixed left-0 top-0 z-50 flex h-screen w-[250px] flex-col
@@ -71,6 +85,7 @@ function FarmerSidebar({ isOpen, onClose }) {
         </div>
 
         <button
+          type="button"
           onClick={onClose}
           className="rounded-lg p-2 text-white/70 hover:bg-white/10 lg:hidden"
         >
@@ -79,41 +94,58 @@ function FarmerSidebar({ isOpen, onClose }) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-1 px-3 py-5">
-        {menuItems.map((item, index) => {
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-5">
+        {menuItems.map((item) => {
           const Icon = item.icon;
 
           return (
-            <a
+            <NavLink
               key={item.name}
-              href={item.path}
-              className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm transition ${
-                index === 0
-                  ? "bg-white/10 font-medium text-[#f7941d]"
-                  : "text-white/70 hover:bg-white/10 hover:text-white"
-              }`}
+              to={item.path}
+              end={item.end}
+              onClick={onClose}
+              className={({ isActive }) =>
+                `flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm transition ${
+                  isActive
+                    ? "bg-white/10 font-medium text-[#f7941d]"
+                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                }`
+              }
             >
               <Icon size={18} strokeWidth={1.8} />
               <span>{item.name}</span>
-            </a>
+            </NavLink>
           );
         })}
       </nav>
 
       {/* Bottom */}
-      <div className="border-t border-white/10 p-3">
-        <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-white/60 transition hover:bg-white/10 hover:text-white">
+      <div className="shrink-0 border-t border-white/10 p-3">
+        {/* Settings */}
+        <NavLink
+          to="/farmer/settings"
+          onClick={onClose}
+          className={({ isActive }) =>
+            `flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm transition ${
+              isActive
+                ? "bg-white/10 font-medium text-[#f7941d]"
+                : "text-white/60 hover:bg-white/10 hover:text-white"
+            }`
+          }
+        >
           <Settings size={18} />
           <span>Settings</span>
-        </button>
+        </NavLink>
 
-        <a
-          href="/"
+        {/* Logout */}
+        <button
+          type="button"
+          onClick={handleLogout}
           className="mt-1 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-white/60 transition hover:bg-red-500/10 hover:text-red-300"
         >
           <LogOut size={18} />
           <span>Logout</span>
-        </a>
+        </button>
       </div>
     </aside>
   );

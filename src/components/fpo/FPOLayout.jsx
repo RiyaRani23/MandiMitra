@@ -2,20 +2,21 @@ import { Outlet } from "react-router-dom";
 import FPOSidebar from "./FPOSidebar";
 import FPONavbar from "./FPONavbar";
 
-function FPOLayout() {
+const FPOLayout = () => {
   return (
-    <div className="flex min-h-screen bg-[#f6f8f5]">
+    <div className="min-h-screen bg-[#f6f8f5]">
       <FPOSidebar />
 
-      <div className="flex flex-1 flex-col">
+      {/* Everything beside the sidebar */}
+      <div className="ml-64 min-h-screen">
         <FPONavbar />
 
-        <main className="flex-1">
+        <main className="min-h-[calc(100vh-64px)]">
           <Outlet />
         </main>
       </div>
     </div>
   );
-}
+};
 
 export default FPOLayout;
