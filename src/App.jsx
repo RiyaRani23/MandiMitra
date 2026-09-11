@@ -48,24 +48,24 @@ import BuyerProfile from "./pages/buyer/BuyerProfile";
 
 // Admin
 import AdminLogin from "./pages/admin/AdminLogin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import VerificationPage from "./pages/admin/VerificationPage";
+import UsersPage from "./pages/admin/UsersPage";
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* Home */}
         <Route path="/" element={<Home />} />
-
         {/* Authentication */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/register/farmer" element={<FarmerRegister />} />
         <Route path="/register/buyer" element={<BuyerRegister />} />
         <Route path="/register/fpo" element={<FPORegister />} />
-
         <Route path="/verification-pending" element={<VerificationPending />} />
-
         <Route path="/otp-verification" element={<OTPVerification />} />
-
         {/* ================= FARMER ================= */}
         <Route path="/farmer" element={<FarmerLayout />}>
           {/* /farmer */}
@@ -90,9 +90,7 @@ function App() {
           <Route path="payments" element={<FarmerPayments />} />
           <Route path="profile" element={<FarmerProfile />} />
           <Route path="settings" element={<FarmerSettings />} />
-
         </Route>
-
         {/* ================= BUYER ================= */}
         <Route path="/buyer" element={<BuyerLayout />}>
           {/* /buyer */}
@@ -117,7 +115,6 @@ function App() {
           <Route path="payments" element={<BuyerPayments />} />
           <Route path="profile" element={<BuyerProfile />} />
         </Route>
-
         {/* ================= FPO ================= */}
         <Route path="/fpo" element={<FPOLayout />}>
           <Route index element={<Navigate to="dashboard" replace />} />
@@ -131,9 +128,12 @@ function App() {
           <Route path="payments" element={<FPOPayments />} />
           <Route path="profile" element={<FPOProfile />} />
         </Route>
-
         // Admin
         <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/verification" element={<VerificationPage />} />
+        <Route path="/admin/users" element={<UsersPage />} />
+        
       </Routes>
     </BrowserRouter>
   );
