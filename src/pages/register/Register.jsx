@@ -45,19 +45,19 @@ function Register() {
 
       <div className="relative z-10 mx-auto w-full max-w-5xl">
         
-        {/* Top Header Navigation */}
+        {/* Top Header Navigation Optimized for Mobile Single Row */}
         <div className="flex items-center justify-between pb-6 sm:pb-10">
           <Link to="/" className="group flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-[#f7941d] shadow-md transition-transform duration-300 group-hover:scale-105">
+            <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center overflow-hidden rounded-xl bg-[#f7941d] shadow-md transition-transform duration-300 group-hover:scale-105">
               <img src={logoImg} alt="MandiMitra Logo" className="h-full w-full object-cover" />
             </div>
 
             <div className="leading-tight">
-              <div className="text-lg font-bold tracking-tight text-[#113329]">
+              <div className="text-base sm:text-lg font-bold tracking-tight text-[#113329]">
                 <span>Mandi</span>
                 <span className="text-[#f7941d]">Mitra</span>
               </div>
-              <div className="text-[8px] font-bold tracking-[1.5px] text-[#58706b] uppercase">
+              <div className="hidden sm:block text-[8px] font-bold tracking-[1.5px] text-[#58706b] uppercase">
                 Sahi Mandi, Sahi Daam
               </div>
             </div>
@@ -65,9 +65,11 @@ function Register() {
 
           <Link
             to="/login"
-            className="rounded-full border border-[#153d32]/20 bg-white/60 px-4 py-2 text-xs font-semibold text-[#153d32] backdrop-blur-md transition-all hover:bg-[#153d32] hover:text-white shadow-sm"
+            className="rounded-full border border-[#153d32]/20 bg-white/60 px-3.5 sm:px-4 py-2 text-[11px] sm:text-xs font-semibold text-[#153d32] backdrop-blur-md transition-all hover:bg-[#153d32] hover:text-white shadow-sm whitespace-nowrap"
           >
-            Already registered? <span className="underline ml-1">Login</span>
+            <span className="hidden sm:inline">Already registered? </span>
+            <span className="sm:hidden">Registered? </span>
+            <span className="underline ml-0.5">Login</span>
           </Link>
         </div>
 

@@ -59,26 +59,29 @@ function FarmerRegister() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#f4f0e6] via-[#f7f5ed] to-[#ede7d9] flex flex-col justify-between selection:bg-green-100 selection:text-green-900">
       
-      {/* Header */}
-      <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 sm:px-8 py-5">
-        <Link to="/" className="group flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-[#f7941d] shadow-lg shadow-orange-950/20 transition-transform duration-300 group-hover:scale-105">
+      {/* Header Optimized for Mobile Single Row */}
+      <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 sm:px-8 py-3.5 sm:py-5">
+        <Link to="/" className="group flex items-center gap-2.5 sm:gap-3">
+          <div className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center overflow-hidden rounded-xl sm:rounded-2xl bg-[#f7941d] shadow-lg shadow-orange-950/25 transition-transform duration-300 group-hover:scale-105">
             <img src={logoImg} alt="MandiMitra Logo" className="h-full w-full object-cover" />
           </div>
 
           <div className="leading-tight">
-            <div className="text-xl font-bold tracking-tight text-[#113329]">
+            <div className="text-lg sm:text-xl font-bold tracking-tight text-[#113329]">
               <span>Mandi</span>
               <span className="text-[#f7941d]">Mitra</span>
             </div>
-            <div className="text-[9px] font-bold tracking-[1.5px] text-[#58706b] uppercase">
+            {/* Tagline hidden on mobile screens */}
+            <div className="hidden sm:block text-[9px] font-bold tracking-[1.5px] text-[#58706b] uppercase">
               Sahi Mandi, Sahi Daam
             </div>
           </div>
         </Link>
 
-        <p className="text-xs sm:text-sm text-gray-600">
-          Already have an account?{" "}
+        {/* Condensed login CTA for mobile view */}
+        <p className="text-xs sm:text-sm text-gray-600 font-medium">
+          <span className="hidden sm:inline">Already have an account? </span>
+          <span className="sm:hidden">Have account? </span>
           <Link
             to="/login"
             className="font-semibold text-green-700 underline hover:text-green-800"
@@ -89,7 +92,7 @@ function FarmerRegister() {
       </header>
 
       {/* Main Container */}
-      <main className="flex-grow flex items-center justify-center px-4 sm:px-8 py-8">
+      <main className="flex-grow flex items-center justify-center px-4 sm:px-8 py-6">
         <div className="w-full max-w-3xl rounded-[32px] bg-white/90 backdrop-blur-xl p-6 sm:p-10 shadow-xl border border-black/5">
           
           {/* Heading */}
