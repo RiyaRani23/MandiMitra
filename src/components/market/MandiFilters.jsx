@@ -20,31 +20,31 @@ const MandiFilters = ({
   // ========================================================
 
   const states = [
-  "Andhra Pradesh",
-  "Assam",
-  "Bihar",
-  "Chhattisgarh",
-  "Gujarat",
-  "Haryana",
-  "Himachal Pradesh",
-  "Jharkhand",
-  "Karnataka",
-  "Kerala",
-  "Madhya Pradesh",
-  "Maharashtra",
-  "Manipur",
-  "Meghalaya",
-  "Odisha",
-  "Punjab",
-  "Rajasthan",
-  "Tamil Nadu",
-  "Telangana",
-  "Tripura",
-  "Uttar Pradesh",
-  "Uttarakhand",
-  "West Bengal",
-  "Goa",
-].sort();
+    "Andhra Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal",
+    "Goa",
+  ].sort();
 
   // Get unique districts from API data
   const districts = [
@@ -70,28 +70,28 @@ const MandiFilters = ({
   ].sort();
 
   return (
-    <div className="mb-5 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-      <div className="mb-3">
-        <h3 className="text-sm font-bold text-gray-900">
+    <div className="rounded-3xl border border-black/5 bg-white/80 backdrop-blur-xl p-5 sm:p-6 shadow-sm space-y-4">
+      <div>
+        <h3 className="text-sm font-bold text-gray-900 tracking-tight">
           Check Mandi Prices
         </h3>
 
-        <p className="mt-1 text-xs text-gray-500">
+        <p className="mt-0.5 text-xs text-gray-500 font-medium">
           Select your location to see local mandi prices
         </p>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-3">
         {/* State */}
-        <div>
-          <label className="mb-1.5 block text-xs font-semibold text-gray-600">
+        <div className="space-y-1.5">
+          <label className="block text-xs font-bold uppercase tracking-wider text-gray-500">
             State
           </label>
 
           <select
             value={selectedState}
             onChange={(e) => onStateChange(e.target.value)}
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-700 outline-none transition focus:border-green-500 focus:bg-white"
+            className="w-full rounded-2xl border border-gray-100 bg-[#f8faf8] px-4 py-3 text-xs sm:text-sm font-semibold text-gray-800 outline-none transition focus:border-emerald-300 focus:bg-white focus:ring-2 focus:ring-emerald-100 cursor-pointer shadow-2xs"
           >
             {states.map((state) => (
               <option key={state} value={state}>
@@ -102,15 +102,15 @@ const MandiFilters = ({
         </div>
 
         {/* District */}
-        <div>
-          <label className="mb-1.5 block text-xs font-semibold text-gray-600">
+        <div className="space-y-1.5">
+          <label className="block text-xs font-bold uppercase tracking-wider text-gray-500">
             District
           </label>
 
           <select
             value={selectedDistrict}
             onChange={(e) => onDistrictChange(e.target.value)}
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-700 outline-none transition focus:border-green-500 focus:bg-white"
+            className="w-full rounded-2xl border border-gray-100 bg-[#f8faf8] px-4 py-3 text-xs sm:text-sm font-semibold text-gray-800 outline-none transition focus:border-emerald-300 focus:bg-white focus:ring-2 focus:ring-emerald-100 cursor-pointer shadow-2xs"
           >
             <option value="">All Districts</option>
 
@@ -123,15 +123,15 @@ const MandiFilters = ({
         </div>
 
         {/* Mandi */}
-        <div>
-          <label className="mb-1.5 block text-xs font-semibold text-gray-600">
+        <div className="space-y-1.5">
+          <label className="block text-xs font-bold uppercase tracking-wider text-gray-500">
             Mandi
           </label>
 
           <select
             value={selectedMarket}
             onChange={(e) => onMarketChange(e.target.value)}
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-700 outline-none transition focus:border-green-500 focus:bg-white"
+            className="w-full rounded-2xl border border-gray-100 bg-[#f8faf8] px-4 py-3 text-xs sm:text-sm font-semibold text-gray-800 outline-none transition focus:border-emerald-300 focus:bg-white focus:ring-2 focus:ring-emerald-100 cursor-pointer shadow-2xs"
           >
             <option value="">All Mandis</option>
 

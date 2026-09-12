@@ -3,6 +3,18 @@ import { fetchMandiPrices } from "../../services/mandiApi";
 import MarketPriceCard from "./MarketPriceCard";
 import MandiFilters from "./MandiFilters";
 import MarketExplorer from "./MarketExplorer";
+import { 
+  TrendingUp, 
+  Search, 
+  RefreshCw, 
+  MapPin, 
+  AlertCircle, 
+  Sparkles, 
+  Store, 
+  ShoppingBag, 
+  LineChart, 
+  ChevronRight 
+} from "lucide-react";
 
 const MarketPriceSection = () => {
   const [marketPrices, setMarketPrices] = useState([]);
@@ -42,22 +54,6 @@ const MarketPriceSection = () => {
         setLoadingPrices(true);
         setPriceError("");
 
-        // ================= BACKEND INTEGRATION =================
-        // CURRENT:
-        // Fetches live mandi data directly from data.gov.in.
-        //
-        // FUTURE SPRING BOOT:
-        // Replace fetchMandiPrices() with:
-        //
-        // GET /api/mandi/prices
-        // ?state=Maharashtra
-        // &district=Nashik
-        // &market=Lasalgaon
-        //
-        // The frontend will then receive filtered market data
-        // from our Spring Boot backend/database.
-        // ========================================================
-
         const data = await fetchMandiPrices({
           state: selectedState,
           district: selectedDistrict,
@@ -77,18 +73,6 @@ const MarketPriceSection = () => {
     loadPrices();
   }, [selectedState, selectedDistrict, selectedMarket]);
 
-  // FUTURE BACKEND:
-  // This filtering can be moved to Spring Boot:
-  //
-  // GET /api/mandi/prices
-  //     ?state=Maharashtra
-  //     &district=Nashik
-  //     &market=Lasalgaon
-  //
-  // This will be useful when the database contains
-  // larger amounts of mandi-price data.
-  // ====================================================
-
   const filteredPrices = marketPrices.filter((item) => {
     const matchesSearch = item.commodity
       ?.toLowerCase()
@@ -107,42 +91,40 @@ const MarketPriceSection = () => {
     : filteredPrices.slice(0, 12);
 
   return (
-    <div>
-      <div className="mb-8">
-        {/* Section Header */}
-        <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <div className="mb-2 flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-green-100 text-lg">
-                📊
-              </span>
+    <div className="relative min-h-screen bg-gradient-to-b from-[#f8faf7] via-[#f3f7f2] to-[#edf3eb] px-4 py-6 sm:px-8 sm:py-8 overflow-hidden">
+      
+      {/* Background Decorative Glows */}
+      <div className="absolute top-0 right-10 h-[350px] w-[350px] rounded-full bg-emerald-600/5 blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 left-10 h-[350px] w-[350px] rounded-full bg-amber-500/5 blur-[100px] pointer-events-none" />
 
-              <p className="text-sm font-semibold text-green-700">
-                LIVE MARKET DATA
-              </p>
+      <div className="relative z-10 mx-auto max-w-7xl space-y-6">
+        
+        {/* Section Header */}
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between rounded-3xl border border-black/5 bg-white/80 backdrop-blur-xl p-6 sm:p-8 shadow-sm">
+          <div className="space-y-1.5">
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-bold text-emerald-800 tracking-wide border border-emerald-200/50">
+              <Sparkles size={13} className="text-emerald-600" />
+              LIVE MARKET DATA
             </div>
 
-            <h3 className="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
+            <h3 className="text-2xl font-extrabold tracking-tight text-[#123c2c] md:text-3xl">
               Today's Mandi Prices
             </h3>
 
-            <p className="mt-1 text-sm text-gray-500">
-              Compare today's mandi prices and find the right market for your
-              produce.
+            <p className="text-xs sm:text-sm text-gray-500 font-medium">
+              Compare today's mandi prices and find the right market for your produce.
             </p>
           </div>
 
           {/* Location + Refresh */}
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 shadow-sm">
-              <span>📍</span>
-
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5 rounded-2xl border border-gray-100 bg-[#f8faf8] px-4 py-2.5 shadow-xs">
+              <MapPin size={16} className="text-emerald-700" />
               <div>
-                <p className="text-[10px] font-medium uppercase tracking-wide text-gray-400">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
                   State
                 </p>
-
-                <p className="text-sm font-semibold text-gray-800">
+                <p className="text-xs sm:text-sm font-bold text-gray-800">
                   {selectedState}
                 </p>
               </div>
@@ -150,18 +132,17 @@ const MarketPriceSection = () => {
 
             <button
               onClick={refreshPrices}
-              className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-lg shadow-sm transition hover:bg-gray-50"
+              className="group flex h-11 w-11 items-center justify-center rounded-2xl border border-gray-100 bg-[#f8faf8] text-gray-700 shadow-xs transition-all hover:bg-emerald-50 hover:border-emerald-200 hover:text-emerald-700 active:scale-95"
               title="Refresh prices"
             >
-              🔄
+              <RefreshCw size={17} className="transition-transform duration-500 group-hover:rotate-180" />
             </button>
           </div>
         </div>
 
         {/* Search + Status Bar */}
         {!loadingPrices && !priceError && (
-          <>
-            {/* ================= MANDI LOCATION FILTER ================= */}
+          <div className="space-y-4">
             <MandiFilters
               marketPrices={marketPrices}
               selectedState={selectedState}
@@ -179,11 +160,10 @@ const MarketPriceSection = () => {
               onMarketChange={setSelectedMarket}
             />
 
-            {/* ================= SEARCH BAR ================= */}
-            <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-gray-100 bg-white p-3 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-3 rounded-3xl border border-black/5 bg-white/80 backdrop-blur-xl p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
               <div className="relative flex-1">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                  🔍
+                  <Search size={18} />
                 </span>
 
                 <input
@@ -191,36 +171,35 @@ const MarketPriceSection = () => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search for a crop..."
-                  className="w-full rounded-xl bg-gray-50 py-3 pl-11 pr-4 text-sm text-gray-700 outline-none transition placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-green-100"
+                  className="w-full rounded-2xl bg-[#f8faf8] py-3 pl-11 pr-4 text-xs sm:text-sm font-medium text-gray-700 outline-none transition placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-emerald-100 border border-transparent focus:border-emerald-300"
                 />
               </div>
 
-              <div className="flex items-center gap-2 px-2">
-                <span className="h-2 w-2 rounded-full bg-green-500"></span>
-
-                <span className="text-xs font-medium text-gray-500">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-50/60 border border-emerald-100/50">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="text-xs font-semibold text-emerald-800">
                   Live government market data
                 </span>
               </div>
             </div>
-          </>
+          </div>
         )}
+
         {/* Loading State */}
         {loadingPrices && (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((item) => (
               <div
                 key={item}
-                className="animate-pulse rounded-2xl border border-gray-100 bg-white p-5 shadow-sm"
+                className="animate-pulse rounded-3xl border border-black/5 bg-white/80 p-6 shadow-sm space-y-4"
               >
-                <div className="mb-4 h-5 w-32 rounded bg-gray-200"></div>
-                <div className="mb-5 h-3 w-44 rounded bg-gray-100"></div>
-                <div className="mb-5 h-8 w-28 rounded bg-gray-200"></div>
-
-                <div className="grid grid-cols-3 gap-3">
-                  <div className="h-10 rounded bg-gray-100"></div>
-                  <div className="h-10 rounded bg-gray-100"></div>
-                  <div className="h-10 rounded bg-gray-100"></div>
+                <div className="h-5 w-32 rounded-lg bg-gray-200" />
+                <div className="h-3 w-44 rounded-lg bg-gray-100" />
+                <div className="h-8 w-28 rounded-lg bg-gray-200 pt-2" />
+                <div className="grid grid-cols-3 gap-3 pt-2">
+                  <div className="h-10 rounded-xl bg-gray-100" />
+                  <div className="h-10 rounded-xl bg-gray-100" />
+                  <div className="h-10 rounded-xl bg-gray-100" />
                 </div>
               </div>
             ))}
@@ -229,22 +208,22 @@ const MarketPriceSection = () => {
 
         {/* Error State */}
         {!loadingPrices && priceError && (
-          <div className="rounded-2xl border border-red-100 bg-white p-8 text-center shadow-sm">
-            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-red-50 text-2xl">
-              ⚠️
+          <div className="rounded-3xl border border-red-100 bg-white/90 backdrop-blur-xl p-10 text-center shadow-sm space-y-3">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-600 border border-red-100">
+              <AlertCircle size={26} />
             </div>
 
-            <h4 className="font-semibold text-gray-800">
+            <h4 className="font-bold text-gray-900 text-lg">
               Market prices unavailable
             </h4>
 
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="text-xs sm:text-sm text-gray-500 max-w-md mx-auto">
               We couldn't fetch the latest mandi data. Please try again.
             </p>
 
             <button
               onClick={refreshPrices}
-              className="mt-4 rounded-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-green-700"
+              className="mt-2 rounded-2xl bg-emerald-700 px-6 py-3 text-xs sm:text-sm font-bold text-white transition hover:bg-emerald-800 shadow-sm"
             >
               Try Again
             </button>
@@ -266,40 +245,40 @@ const MarketPriceSection = () => {
                 );
 
                 return (
-                  <div className="mb-5 overflow-hidden rounded-2xl border border-green-100 bg-gradient-to-r from-green-50 to-white shadow-sm">
-                    <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="overflow-hidden rounded-3xl border border-emerald-200/70 bg-gradient-to-r from-emerald-50/90 via-white to-emerald-50/40 shadow-sm">
+                    <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-green-600 text-xl text-white shadow-sm">
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-700 text-white shadow-md">
                           ⭐
                         </div>
 
                         <div>
-                          <p className="text-xs font-bold uppercase tracking-wider text-green-700">
+                          <p className="text-[11px] font-bold uppercase tracking-wider text-emerald-800">
                             Best available modal price
                           </p>
 
-                          <h4 className="mt-1 text-lg font-bold text-gray-900">
+                          <h4 className="mt-0.5 text-lg font-bold text-gray-900">
                             {bestMarket.commodity}
                           </h4>
 
-                          <p className="text-sm text-gray-500">
-                            {bestMarket.market}
+                          <p className="text-xs text-gray-500 font-medium">
+                            📍 {bestMarket.market}
                           </p>
                         </div>
                       </div>
 
                       <div className="sm:text-right">
-                        <p className="text-2xl font-extrabold text-green-700">
+                        <p className="text-2xl font-extrabold tracking-tight text-emerald-800">
                           ₹
                           {Number(bestMarket.modal_price).toLocaleString(
                             "en-IN",
                           )}
-                          <span className="ml-1 text-sm font-medium text-gray-500">
+                          <span className="ml-1 text-xs font-semibold text-gray-400">
                             / quintal
                           </span>
                         </p>
 
-                        <p className="mt-1 text-xs text-gray-500">
+                        <p className="mt-0.5 text-xs text-gray-500 font-medium">
                           Highest modal price in current results
                         </p>
                       </div>
@@ -310,133 +289,143 @@ const MarketPriceSection = () => {
 
             {/* Price Cards */}
             {filteredPrices.length === 0 ? (
-              <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+              <div className="overflow-hidden rounded-3xl border border-black/5 bg-white/90 backdrop-blur-xl shadow-sm">
+                
                 {/* Search Result Header */}
-                <div className="border-b border-gray-100 bg-gradient-to-r from-green-50 to-white p-6">
+                <div className="border-b border-gray-100 bg-gradient-to-r from-emerald-50/60 to-white p-6 sm:p-8">
                   <div className="flex items-start gap-4">
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-green-100 text-2xl">
+                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-emerald-100/80 text-2xl border border-emerald-200/50">
                       🌱
                     </div>
 
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-wider text-green-700">
+                    <div className="space-y-1">
+                      <span className="inline-block rounded-full bg-emerald-100/80 px-3 py-1 text-[11px] font-bold text-emerald-800 uppercase tracking-wide">
                         Crop Search
-                      </p>
+                      </span>
 
-                      <h4 className="mt-1 text-xl font-bold text-gray-900">
+                      <h4 className="text-xl font-bold tracking-tight text-gray-900 pt-1">
                         {searchTerm}
                       </h4>
 
-                      <p className="mt-1 text-sm text-gray-500">
-                        We couldn't find a current mandi price for this crop in
-                        the available results.
+                      <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                        We couldn't find a current mandi price for this crop in the available results.
                       </p>
                     </div>
                   </div>
                 </div>
 
                 {/* Fallback Information */}
-                <div className="p-6">
+                <div className="p-6 sm:p-8 space-y-6">
+                  
                   {/* Important Notice */}
-                  <div className="flex gap-3 rounded-xl border border-yellow-100 bg-yellow-50 p-4">
+                  <div className="flex gap-3 rounded-2xl border border-amber-200/60 bg-amber-50/70 p-4 sm:p-5">
                     <span className="text-xl">⚠️</span>
 
-                    <div>
-                      <p className="text-sm font-semibold text-yellow-800">
+                    <div className="space-y-1">
+                      <p className="text-xs sm:text-sm font-bold text-amber-900">
                         Current price unavailable
                       </p>
 
-                      <p className="mt-1 text-xs leading-5 text-yellow-700">
-                        This does not mean you cannot sell your {searchTerm}. It
-                        only means that a current price was not found in the
-                        mandi data currently available to MandiMitra.
+                      <p className="text-xs leading-relaxed text-amber-800/80 font-medium">
+                        This does not mean you cannot sell your {searchTerm}. It only means that a current price was not found in the mandi data currently available to MandiMitra.
                       </p>
                     </div>
                   </div>
 
                   {/* Next Actions */}
-                  <div className="mt-6">
-                    <h5 className="text-sm font-bold text-gray-900">
+                  <div className="space-y-3">
+                    <h5 className="text-sm font-bold text-gray-900 tracking-tight">
                       What would you like to do?
                     </h5>
 
-                    <div className="mt-4 grid gap-3 md:grid-cols-3">
+                    <div className="grid gap-4 md:grid-cols-3">
+                      
                       {/* Nearby Markets */}
                       <button
                         onClick={() => setShowMarketExplorer(true)}
-                        className="group rounded-xl border border-gray-200 p-4 text-left transition hover:border-green-200 hover:bg-green-50"
+                        className="group flex flex-col justify-between rounded-2xl border border-gray-100 bg-[#f8faf8] p-5 text-left transition-all hover:border-emerald-300 hover:bg-white hover:shadow-md"
                       >
-                        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-green-100 text-lg">
-                          📍
+                        <div className="space-y-3">
+                          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700 shadow-2xs">
+                            <Store size={20} />
+                          </div>
+
+                          <p className="text-sm font-bold text-gray-900">
+                            Check other markets
+                          </p>
+
+                          <p className="text-xs leading-relaxed text-gray-500 font-medium">
+                            Look for {searchTerm} prices in other mandi markets.
+                          </p>
                         </div>
 
-                        <p className="text-sm font-semibold text-gray-800">
-                          Check other markets
-                        </p>
-
-                        <p className="mt-1 text-xs leading-5 text-gray-500">
-                          Look for {searchTerm} prices in other mandi markets.
-                        </p>
-
-                        <span className="mt-3 inline-block text-xs font-semibold text-green-700">
-                          Explore markets →
+                        <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-emerald-700 group-hover:translate-x-1 transition-transform">
+                          <span>Explore markets</span>
+                          <ChevronRight size={14} />
                         </span>
                       </button>
 
                       {/* Buyers */}
-                      <button className="group rounded-xl border border-gray-200 p-4 text-left transition hover:border-green-200 hover:bg-green-50">
-                        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-lg">
-                          🛒
+                      <button className="group flex flex-col justify-between rounded-2xl border border-gray-100 bg-[#f8faf8] p-5 text-left transition-all hover:border-blue-300 hover:bg-white hover:shadow-md">
+                        <div className="space-y-3">
+                          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-100 text-blue-700 shadow-2xs">
+                            <ShoppingBag size={20} />
+                          </div>
+
+                          <p className="text-sm font-bold text-gray-900">
+                            Find buyers
+                          </p>
+
+                          <p className="text-xs leading-relaxed text-gray-500 font-medium">
+                            See buyers or FPOs looking to purchase {searchTerm}.
+                          </p>
                         </div>
 
-                        <p className="text-sm font-semibold text-gray-800">
-                          Find buyers
-                        </p>
-
-                        <p className="mt-1 text-xs leading-5 text-gray-500">
-                          See buyers or FPOs looking to purchase {searchTerm}.
-                        </p>
-
-                        <span className="mt-3 inline-block text-xs font-semibold text-green-700">
-                          Find buyers →
+                        <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-blue-700 group-hover:translate-x-1 transition-transform">
+                          <span>Find buyers</span>
+                          <ChevronRight size={14} />
                         </span>
                       </button>
 
                       {/* Price History */}
-                      <button className="group rounded-xl border border-gray-200 p-4 text-left transition hover:border-green-200 hover:bg-green-50">
-                        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-purple-100 text-lg">
-                          📈
+                      <button className="group flex flex-col justify-between rounded-2xl border border-gray-100 bg-[#f8faf8] p-5 text-left transition-all hover:border-purple-300 hover:bg-white hover:shadow-md">
+                        <div className="space-y-3">
+                          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-100 text-purple-700 shadow-2xs">
+                            <LineChart size={20} />
+                          </div>
+
+                          <p className="text-sm font-bold text-gray-900">
+                            Check price history
+                          </p>
+
+                          <p className="text-xs leading-relaxed text-gray-500 font-medium">
+                            Review previously available prices before deciding when to sell.
+                          </p>
                         </div>
 
-                        <p className="text-sm font-semibold text-gray-800">
-                          Check price history
-                        </p>
-
-                        <p className="mt-1 text-xs leading-5 text-gray-500">
-                          Review previously available prices before deciding
-                          when to sell.
-                        </p>
-
-                        <span className="mt-3 inline-block text-xs font-semibold text-green-700">
-                          View history →
+                        <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-purple-700 group-hover:translate-x-1 transition-transform">
+                          <span>View history</span>
+                          <ChevronRight size={14} />
                         </span>
                       </button>
+
                     </div>
                   </div>
 
                   {/* Search Again */}
-                  <div className="mt-6 flex flex-col gap-3 border-t border-gray-100 pt-5 sm:flex-row sm:items-center sm:justify-between">
-                    <p className="text-xs text-gray-400">
+                  <div className="flex flex-col gap-3 border-t border-gray-100 pt-5 sm:flex-row sm:items-center sm:justify-between">
+                    <p className="text-xs text-gray-400 font-medium">
                       Tip: Try another crop name or check other markets.
                     </p>
 
                     <button
                       onClick={() => setSearchTerm("")}
-                      className="rounded-xl bg-green-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-green-700"
+                      className="rounded-2xl bg-emerald-700 px-5 py-3 text-xs sm:text-sm font-bold text-white transition hover:bg-emerald-800 shadow-sm"
                     >
                       Show today's prices
                     </button>
                   </div>
+
                 </div>
               </div>
             ) : (
@@ -462,11 +451,12 @@ const MarketPriceSection = () => {
                     );
                   })}
                 </div>
+
                 {filteredPrices.length > 12 && (
                   <div className="mt-6 flex justify-center">
                     <button
                       onClick={() => setShowAllPrices((prev) => !prev)}
-                      className="rounded-xl border border-green-200 bg-white px-6 py-3 text-sm font-semibold text-green-700 shadow-sm transition hover:bg-green-50"
+                      className="rounded-2xl border border-emerald-200 bg-white/90 px-6 py-3 text-xs sm:text-sm font-bold text-emerald-800 shadow-xs transition hover:bg-emerald-50 hover:scale-[1.02]"
                     >
                       {showAllPrices ? "Show Less ↑" : "Show More ↓"}
                     </button>
@@ -475,10 +465,9 @@ const MarketPriceSection = () => {
               </>
             )}
 
-            {/* Data Source */}
-            <div className="mt-4 flex items-center justify-between rounded-xl px-1 text-[11px] text-gray-400">
+            {/* Data Source Footer */}
+            <div className="flex items-center justify-between rounded-2xl bg-white/40 px-3 py-2 text-[11px] text-gray-400 font-medium">
               <span>Source: Government of India • data.gov.in</span>
-
               <span>{marketPrices.length} markets shown</span>
             </div>
           </>
@@ -486,21 +475,23 @@ const MarketPriceSection = () => {
 
         {/* Empty State */}
         {!loadingPrices && !priceError && marketPrices.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-gray-200 bg-white p-10 text-center shadow-sm">
-            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-gray-50 text-2xl">
+          <div className="rounded-3xl border border-dashed border-gray-200 bg-white/90 backdrop-blur-xl p-10 text-center shadow-sm space-y-3">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-2xl border border-emerald-100">
               🌾
             </div>
 
-            <h4 className="font-semibold text-gray-800">
+            <h4 className="font-bold text-gray-900 text-lg">
               No market prices found
             </h4>
 
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="text-xs sm:text-sm text-gray-500 max-w-sm mx-auto">
               Try selecting another location or crop.
             </p>
           </div>
         )}
+
       </div>
+
       {showMarketExplorer && (
         <MarketExplorer
           searchTerm={searchTerm}

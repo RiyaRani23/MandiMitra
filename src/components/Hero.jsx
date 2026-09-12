@@ -1,270 +1,175 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  ArrowRight,
-  TrendingUp,
-  MapPin,
-  IndianRupee,
-  Activity,
-} from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+
+const slides = [
+  {
+    image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=2200&q=85",
+    eyebrow: "Empowering India's Farmers",
+    title: "Sahi Daam, Sahi Faisla, Saksham Kisan.",
+    text: "Discover better markets, compare mandi prices, connect with buyers and FPOs, and make smarter selling decisions for your produce.",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=2200&q=85",
+    eyebrow: "Direct Connections",
+    title: "Kisan se Bazaar Tak, Seedha Aur Bharosemand.",
+    text: "Connect farmers and FPOs with verified buyers and better opportunities.",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=2200&q=85",
+    eyebrow: "Smart Mandi",
+    title: "Smart Mandi. Better Decisions.",
+    text: "Real-time market prices and demand insights, all in one place.",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=2200&q=85",
+    eyebrow: "Stronger Together",
+    title: "Akela Kisan Nahi, Saath Mein Poora Bazaar.",
+    text: "Aggregate produce through FPOs and unlock stronger market opportunities.",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=2200&q=85",
+    eyebrow: "Technology for Farmers",
+    title: "Technology Bazaar Tak, Faisla Kisan Ke Haath.",
+    text: "Data-driven insights designed to make agricultural selling simpler.",
+  },
+];
 
 function Hero() {
+  const [active, setActive] = useState(0);
+
+  // Automatically rotate slides every 5.5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActive((v) => (v + 1) % slides.length);
+    }, 5500);
+    return () => clearInterval(timer);
+  }, []);
+
+  const slide = slides[active];
+
   return (
-    <section className="relative min-h-[680px] overflow-hidden">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://cdn.pixabay.com/photo/2017/08/25/05/30/in-rice-field-2679153_1280.jpg')",
-        }}
-      />
+    <section className="relative w-full min-h-screen overflow-hidden bg-[#0c261b] flex flex-col justify-center">
+      {/* Background Image Carousel Slides - Guaranteed full screen coverage with absolute inset */}
+      {slides.map((s, i) => (
+        <div
+          key={s.title}
+          className={`absolute inset-0 h-full w-full bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
+            i === active ? "opacity-100 scale-105" : "opacity-0 scale-100"
+          }`}
+          style={{
+            backgroundImage: `linear-gradient(90deg, rgba(12,38,27,.96) 0%, rgba(12,38,27,.84) 55%, rgba(12,38,27,.4) 100%), linear-gradient(0deg, rgba(9,35,24,.8), rgba(9,35,24,.5) 60%), url(${s.image})`,
+            transitionProperty: "opacity, transform",
+            transitionDuration: "1.5s",
+          }}
+        />
+      ))}
 
-      {/* Main Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#082f22]/95 via-[#123f2f]/85 to-[#123f2f]/35" />
-
-      {/* Bottom Overlay */}
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0b3526]/80 to-transparent" />
+      {/* Decorative Glow Elements */}
+      <div className="absolute -right-20 top-20 h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-green-400/10 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 h-64 w-64 sm:h-80 sm:w-80 rounded-full bg-orange-400/10 blur-3xl pointer-events-none" />
 
       {/* Hero Content */}
-      <div className="relative z-10 mx-auto flex min-h-[680px] max-w-[1400px] items-center px-6 py-24 lg:px-10">
-        <div className="grid w-full items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 sm:px-8 py-28 sm:py-32 lg:px-12 flex flex-col justify-center flex-grow">
+        <div className="w-full max-w-2xl">
           
-          {/* Left Content */}
-          <div className="max-w-2xl">
-            {/* Label */}
-            <div className="mb-6 flex items-center gap-2">
-              <span className="flex h-2.5 w-2.5 rounded-full bg-[#52d273] shadow-[0_0_10px_rgba(82,210,115,0.8)]" />
+          {/* Eyebrow / Label */}
+          <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 sm:px-4 sm:py-2 backdrop-blur-md shadow-lg">
+            <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 animate-pulse rounded-full bg-[#52d273] shadow-[0_0_10px_rgba(82,210,115,0.8)]" />
+            <span className="text-[10px] sm:text-[11px] font-bold tracking-[2px] sm:tracking-[2.5px] text-[#f7941d]">
+              {slide.eyebrow}
+            </span>
+          </div>
 
-              <span className="text-[10px] font-bold tracking-[2.5px] text-[#f7941d] sm:text-xs">
-                EMPOWERING INDIA'S FARMERS
-              </span>
+          {/* Heading */}
+          <h1 className="text-3xl sm:text-5xl lg:text-[64px] font-light leading-[1.15] sm:leading-[1.1] tracking-tight text-white">
+            {slide.title}
+          </h1>
+
+          {/* Description */}
+          <p className="mt-4 sm:mt-6 max-w-xl text-xs sm:text-base lg:text-lg leading-relaxed text-white/85">
+            {slide.text}
+          </p>
+
+          {/* Buttons */}
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+            <Link
+              to="/market-prices"
+              className="group inline-flex items-center justify-center gap-3 rounded-full bg-[#168451] px-6 sm:px-7 py-3 sm:py-4 text-xs sm:text-sm font-semibold text-white shadow-xl shadow-green-950/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#116d43]"
+            >
+              <span>Explore Mandi Prices</span>
+              <ArrowRight
+                size={17}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
+
+            <Link
+              to="/register"
+              className="group inline-flex items-center justify-center gap-3 rounded-full border border-white/30 bg-white/10 px-6 sm:px-7 py-3 sm:py-4 text-xs sm:text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-gray-900"
+            >
+              <span>Join MandiMitra</span>
+              <ArrowRight
+                size={17}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
+          </div>
+
+          {/* Trust Points */}
+          <div className="mt-8 sm:mt-10 flex flex-wrap gap-x-5 sm:gap-x-8 gap-y-2 text-[11px] sm:text-xs font-medium text-white/85">
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#52d273]" />
+              Transparent Prices
             </div>
-
-            {/* Heading */}
-            <h1 className="text-5xl font-light leading-[1.08] tracking-[-2px] text-white sm:text-6xl lg:text-[68px]">
-              Sahi{" "}
-              <span className="font-semibold text-[#f7941d]">
-                Daam
-              </span>
-              ,
-              <br />
-              Sahi Faisla,
-              <br />
-              <span className="font-semibold text-white">
-                Saksham Kisan.
-              </span>
-            </h1>
-
-            {/* Description */}
-            <p className="mt-6 max-w-xl text-sm leading-7 text-white/80 sm:text-base">
-              Discover better markets, compare mandi prices, connect with
-              buyers and FPOs, and make smarter selling decisions for your
-              produce.
-            </p>
-
-            {/* Buttons */}
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                to="/market-prices"
-                className="group flex w-fit items-center justify-center gap-3 rounded-full bg-[#168451] px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-green-950/20 transition hover:bg-[#116d43]"
-              >
-                Explore Mandi Prices
-
-                <ArrowRight
-                  size={17}
-                  className="transition-transform group-hover:translate-x-1"
-                />
-              </Link>
-
-              <Link
-                to="/register"
-                className="group flex w-fit items-center justify-center gap-3 rounded-full border border-white/60 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white hover:text-gray-900"
-              >
-                Join MandiMitra
-
-                <ArrowRight
-                  size={17}
-                  className="transition-transform group-hover:translate-x-1"
-                />
-              </Link>
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#52d273]" />
+              Verified Participants
             </div>
-
-            {/* Trust Points */}
-            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-xs text-white/70">
-              <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#52d273]" />
-                Transparent Prices
-              </div>
-
-              <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#52d273]" />
-                Verified Participants
-              </div>
-
-              <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#52d273]" />
-                Better Market Access
-              </div>
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#52d273]" />
+              Better Market Access
             </div>
           </div>
 
-          {/* Right Market Card */}
-          <div className="hidden justify-center lg:flex">
-            <div className="w-full max-w-[390px]">
-              {/* Live Badge */}
-              <div className="mb-3 flex justify-end">
-                <div className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md">
-                  <span className="h-2 w-2 rounded-full bg-[#52d273]" />
-                  Live Market Snapshot
-                </div>
-              </div>
+        </div>
+      </div>
 
-              {/* Card */}
-              <div className="overflow-hidden rounded-3xl border border-white/20 bg-white/95 shadow-2xl backdrop-blur-md">
-                {/* Card Header */}
-                <div className="border-b border-gray-100 p-5">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="text-xs font-medium text-gray-500">
-                        Today's Mandi Prices
-                      </p>
-
-                      <h2 className="mt-1 text-xl font-bold text-[#123c2c]">
-                        Market Snapshot
-                      </h2>
-                    </div>
-
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-50">
-                      <TrendingUp
-                        size={20}
-                        className="text-green-700"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Market Items */}
-                <div className="space-y-3 p-5">
-                  {/* Onion */}
-                  <div className="rounded-2xl border border-gray-100 bg-gray-50 p-4 transition hover:border-green-100 hover:bg-green-50/40">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-semibold text-gray-900">
-                          Onion
-                        </p>
-
-                        <div className="mt-1 flex items-center gap-1 text-xs text-gray-500">
-                          <MapPin size={12} />
-                          Lasalgaon
-                        </div>
-                      </div>
-
-                      <div className="text-right">
-                        <div className="flex items-center justify-end text-base font-bold text-[#123c2c]">
-                          <IndianRupee size={14} />
-                          2,850
-                        </div>
-
-                        <p className="mt-0.5 text-[10px] text-green-600">
-                          / Quintal
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Tomato */}
-                  <div className="rounded-2xl border border-gray-100 bg-gray-50 p-4 transition hover:border-green-100 hover:bg-green-50/40">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-semibold text-gray-900">
-                          Tomato
-                        </p>
-
-                        <div className="mt-1 flex items-center gap-1 text-xs text-gray-500">
-                          <MapPin size={12} />
-                          Nashik
-                        </div>
-                      </div>
-
-                      <div className="text-right">
-                        <div className="flex items-center justify-end text-base font-bold text-[#123c2c]">
-                          <IndianRupee size={14} />
-                          2,420
-                        </div>
-
-                        <p className="mt-0.5 text-[10px] text-green-600">
-                          / Quintal
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Wheat */}
-                  <div className="rounded-2xl border border-gray-100 bg-gray-50 p-4 transition hover:border-green-100 hover:bg-green-50/40">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-semibold text-gray-900">
-                          Wheat
-                        </p>
-
-                        <div className="mt-1 flex items-center gap-1 text-xs text-gray-500">
-                          <MapPin size={12} />
-                          Pune
-                        </div>
-                      </div>
-
-                      <div className="text-right">
-                        <div className="flex items-center justify-end text-base font-bold text-[#123c2c]">
-                          <IndianRupee size={14} />
-                          2,640
-                        </div>
-
-                        <p className="mt-0.5 text-[10px] text-green-600">
-                          / Quintal
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Footer */}
-                <div className="border-t border-gray-100 bg-green-50/60 px-5 py-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Activity
-                        size={15}
-                        className="text-green-700"
-                      />
-
-                      <span className="text-xs font-medium text-green-800">
-                        Transparent price discovery
-                      </span>
-                    </div>
-
-                    <Link
-                      to="/market-prices"
-                      className="text-xs font-semibold text-green-700 hover:text-green-900"
-                    >
-                      View all →
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              {/* Small Floating Badge */}
-              <div className="mt-4 flex justify-start">
-                <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-md">
-                  <p className="text-[10px] uppercase tracking-wider text-white/60">
-                    MandiMitra
-                  </p>
-
-                  <p className="mt-1 text-xs font-medium text-white">
-                    Sahi Mandi, Sahi Daam
-                  </p>
-                </div>
-              </div>
-            </div>
+      {/* Carousel Controls at Bottom */}
+      <div className="relative z-20 mx-auto w-full max-w-[1400px] px-5 sm:px-8 lg:px-12 pb-6 sm:pb-8 flex justify-start sm:justify-between items-center">
+        <div className="flex items-center gap-2.5 sm:gap-3 bg-black/40 border border-white/15 rounded-full px-3.5 py-2 backdrop-blur-md shadow-lg">
+          <button
+            aria-label="Previous slide"
+            onClick={() => setActive((active - 1 + slides.length) % slides.length)}
+            className="text-white/70 hover:text-white transition p-1"
+          >
+            <ChevronLeft size={16} />
+          </button>
+          
+          <div className="flex gap-1.5">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                aria-label={`Go to slide ${i + 1}`}
+                onClick={() => setActive(i)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === active ? "w-5 sm:w-6 bg-[#f7941d]" : "w-1.5 bg-white/40 hover:bg-white/70"
+                }`}
+              />
+            ))}
           </div>
+
+          <button
+            aria-label="Next slide"
+            onClick={() => setActive((active + 1) % slides.length)}
+            className="text-white/70 hover:text-white transition p-1"
+          >
+            <ChevronRight size={16} />
+          </button>
+          
+          <span className="text-[11px] sm:text-xs font-semibold text-white/85 ml-1.5 pl-2 border-l border-white/25">
+            0{active + 1} / 05
+          </span>
         </div>
       </div>
     </section>
