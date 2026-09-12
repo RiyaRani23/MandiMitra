@@ -89,7 +89,7 @@ function BuyerDashboard() {
             <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Welcome back 👋</p>
 
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#123c2c]">
-              Good Morning, Buyer
+              Hello, Buyer
             </h1>
 
             <p className="text-xs sm:text-sm text-gray-500 font-medium max-w-xl">

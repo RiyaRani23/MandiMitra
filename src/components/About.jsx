@@ -44,69 +44,70 @@ function About() {
   return (
     <section
       id="about"
-      className="relative bg-gradient-to-b from-[#f8f8f3] to-[#f3f4ee] px-4 sm:px-8 lg:px-16 py-16 sm:py-24 overflow-hidden"
+      className="relative bg-gradient-to-b from-[#f8f8f3] via-[#f5f6f0] to-[#edf0e8] px-4 sm:px-8 lg:px-16 py-16 sm:py-24 overflow-hidden"
     >
       {/* Background Decorative Glow */}
-      <div className="absolute top-10 right-0 h-72 w-72 rounded-full bg-emerald-600/5 blur-3xl pointer-events-none" />
+      <div className="absolute top-10 right-0 h-80 w-80 rounded-full bg-emerald-600/5 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-10 left-0 h-80 w-80 rounded-full bg-amber-500/5 blur-[120px] pointer-events-none" />
       
-      <div className="mx-auto max-w-[1350px]">
+      <div className="mx-auto max-w-[1350px] relative z-10 space-y-12 sm:space-y-16">
+        
         {/* Heading Container */}
-        <div className="max-w-[700px]">
-          <div className="inline-flex items-center gap-2 rounded-full bg-orange-500/10 px-3.5 py-1.5 border border-orange-500/20 mb-4">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#f7941d]" />
+        <div className="max-w-[700px] space-y-4">
+          <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/10 px-4 py-1.5 border border-amber-500/20 shadow-2xs">
+            <span className="h-2 w-2 rounded-full bg-[#f7941d] animate-pulse" />
             <span className="text-[10px] sm:text-[11px] font-bold tracking-[2.5px] text-[#f7941d]">
               WHY MANDIMITRA?
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-normal leading-[1.15] sm:leading-[1.08] tracking-tight text-[#163b31]">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-normal leading-[1.12] sm:leading-[1.08] tracking-tight text-[#163b31]">
             From Mandi Confusion{" "}
             <br className="hidden sm:inline" />
-            <span className="font-semibold text-[#d97822]">
+            <span className="font-bold text-[#d97822]">
               to Market Confidence.
             </span>
           </h2>
 
-          <p className="mt-4 sm:mt-6 max-w-[580px] text-sm sm:text-base leading-relaxed text-[#476579]">
-            MandiMitra brings prices, buyers, demand and market
-            insights together so farmers can make informed selling
-            decisions.
+          <p className="max-w-[580px] text-xs sm:text-base leading-relaxed text-[#476579] font-medium">
+            MandiMitra brings prices, buyers, demand and market insights together so farmers can make informed selling decisions.
           </p>
         </div>
 
         {/* Feature Cards Grid */}
-        <div className="mt-12 sm:mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
           {features.map((feature, index) => {
             const Icon = feature.icon;
 
             return (
               <div
                 key={index}
-                className="group relative flex flex-col justify-between min-h-[240px] sm:min-h-[260px] rounded-2xl border border-[#dce3dc] bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-600/30 hover:shadow-xl hover:shadow-emerald-950/5"
+                className="group relative flex flex-col justify-between min-h-[260px] rounded-3xl border border-black/5 bg-white/90 backdrop-blur-xl p-6 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-500/30 hover:shadow-xl hover:shadow-emerald-950/5"
               >
-                <div>
+                <div className="space-y-4">
                   {/* Icon */}
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eaf4eb] transition-colors duration-300 group-hover:bg-[#197044] group-hover:text-white">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 transition-all duration-300 group-hover:bg-emerald-700 group-hover:text-white shadow-2xs">
                     <Icon
                       size={22}
                       strokeWidth={1.8}
-                      className="text-[#197044] transition-colors duration-300 group-hover:text-white"
                     />
                   </div>
 
-                  {/* Title */}
-                  <h3 className="mt-6 text-base sm:text-[17px] font-semibold text-[#111827] tracking-tight">
-                    {feature.title}
-                  </h3>
+                  <div className="space-y-1.5">
+                    {/* Title */}
+                    <h3 className="text-base sm:text-[17px] font-bold text-[#111827] tracking-tight">
+                      {feature.title}
+                    </h3>
 
-                  {/* Description */}
-                  <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-[#476579]">
-                    {feature.description}
-                  </p>
+                    {/* Description */}
+                    <p className="text-xs sm:text-[13px] leading-relaxed text-[#476579] font-medium">
+                      {feature.description}
+                    </p>
+                  </div>
                 </div>
 
                 {/* Bottom Action Link / Hint */}
-                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-1.5 text-xs font-semibold text-[#197044] opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+                <div className="mt-6 pt-4 border-t border-gray-100 flex items-center gap-1.5 text-xs font-bold text-emerald-700 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
                   <span>Learn more</span>
                   <ArrowRight size={13} />
                 </div>

@@ -1,9 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // ================= COMMON PAGES =================
 import Home from "./pages/Home";
@@ -14,7 +9,7 @@ import BuyerRegister from "./pages/register/BuyerRegister";
 import FPORegister from "./pages/register/FPORegister";
 import VerificationPending from "./pages/register/VerificationPending";
 import OTPVerification from "./pages/OTPVerification";
-
+import PublicMarketPrices from "./pages/PublicMarketPrices";
 // ================= FARMER =================
 import FarmerLayout from "./components/farmer/FarmerLayout";
 import FarmerDashboard from "./pages/FarmerDashboard";
@@ -67,64 +62,28 @@ function App() {
       <Routes>
         {/* ================= HOME ================= */}
         <Route path="/" element={<Home />} />
-
+        <Route path="/market-prices" element={<PublicMarketPrices />} />
         {/* ================= AUTHENTICATION ================= */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route
-          path="/register/farmer"
-          element={<FarmerRegister />}
-        />
-        <Route
-          path="/register/buyer"
-          element={<BuyerRegister />}
-        />
-        <Route
-          path="/register/fpo"
-          element={<FPORegister />}
-        />
-        <Route
-          path="/verification-pending"
-          element={<VerificationPending />}
-        />
-        <Route
-          path="/otp-verification"
-          element={<OTPVerification />}
-        />
+        <Route path="/register/farmer" element={<FarmerRegister />} />
+        <Route path="/register/buyer" element={<BuyerRegister />} />
+        <Route path="/register/fpo" element={<FPORegister />} />
+        <Route path="/verification-pending" element={<VerificationPending />} />
+        <Route path="/otp-verification" element={<OTPVerification />} />
 
         {/* ================= FARMER ================= */}
         <Route element={<ProtectedRoute allowedRole="farmer" />}>
           <Route path="/farmer" element={<FarmerLayout />}>
             <Route index element={<FarmerDashboard />} />
-            <Route
-              path="market-prices"
-              element={<MarketPrices />}
-            />
-            <Route
-              path="sell-produce"
-              element={<SellProduce />}
-            />
-            <Route
-              path="find-buyers"
-              element={<FindBuyers />}
-            />
+            <Route path="market-prices" element={<MarketPrices />} />
+            <Route path="sell-produce" element={<SellProduce />} />
+            <Route path="find-buyers" element={<FindBuyers />} />
             <Route path="fpos" element={<FPOs />} />
-            <Route
-              path="my-deals"
-              element={<FarmerDeals />}
-            />
-            <Route
-              path="payments"
-              element={<FarmerPayments />}
-            />
-            <Route
-              path="profile"
-              element={<FarmerProfile />}
-            />
-            <Route
-              path="settings"
-              element={<FarmerSettings />}
-            />
+            <Route path="my-deals" element={<FarmerDeals />} />
+            <Route path="payments" element={<FarmerPayments />} />
+            <Route path="profile" element={<FarmerProfile />} />
+            <Route path="settings" element={<FarmerSettings />} />
           </Route>
         </Route>
 
@@ -132,116 +91,56 @@ function App() {
         <Route element={<ProtectedRoute allowedRole="buyer" />}>
           <Route path="/buyer" element={<BuyerLayout />}>
             <Route index element={<BuyerDashboard />} />
-            <Route
-              path="market-prices"
-              element={<BuyerMarketPrices />}
-            />
-            <Route
-              path="requirements"
-              element={<BuyerRequirements />}
-            />
-            <Route
-              path="find-farmers"
-              element={<FindFarmers />}
-            />
-            <Route
-              path="offers"
-              element={<BuyerOffers />}
-            />
-            <Route
-              path="deals"
-              element={<BuyerDeals />}
-            />
-            <Route
-              path="payments"
-              element={<BuyerPayments />}
-            />
-            <Route
-              path="profile"
-              element={<BuyerProfile />}
-            />
+            <Route path="market-prices" element={<BuyerMarketPrices />} />
+            <Route path="requirements" element={<BuyerRequirements />} />
+            <Route path="find-farmers" element={<FindFarmers />} />
+            <Route path="offers" element={<BuyerOffers />} />
+            <Route path="deals" element={<BuyerDeals />} />
+            <Route path="payments" element={<BuyerPayments />} />
+            <Route path="profile" element={<BuyerProfile />} />
           </Route>
         </Route>
 
         {/* ================= FPO ================= */}
         <Route element={<ProtectedRoute allowedRole="fpo" />}>
           <Route path="/fpo" element={<FPOLayout />}>
-            <Route
-              index
-              element={<Navigate to="dashboard" replace />}
-            />
+            <Route index element={<Navigate to="dashboard" replace />} />
 
-            <Route
-              path="dashboard"
-              element={<FPODashboard />}
-            />
+            <Route path="dashboard" element={<FPODashboard />} />
 
-            <Route
-              path="market-prices"
-              element={<FPOMarketPrices />}
-            />
+            <Route path="market-prices" element={<FPOMarketPrices />} />
 
-            <Route
-              path="approved-farmers"
-              element={<ApprovedFarmers />}
-            />
+            <Route path="approved-farmers" element={<ApprovedFarmers />} />
 
-            <Route
-              path="add-farmer"
-              element={<AddFarmer />}
-            />
+            <Route path="add-farmer" element={<AddFarmer />} />
 
-            <Route
-              path="inventory"
-              element={<Inventory />}
-            />
+            <Route path="inventory" element={<Inventory />} />
 
             <Route
               path="buyer-requirements"
               element={<FPOBuyerRequirements />}
             />
 
-            <Route
-              path="deals"
-              element={<FPODeals />}
-            />
+            <Route path="deals" element={<FPODeals />} />
 
-            <Route
-              path="payments"
-              element={<FPOPayments />}
-            />
+            <Route path="payments" element={<FPOPayments />} />
 
-            <Route
-              path="profile"
-              element={<FPOProfile />}
-            />
+            <Route path="profile" element={<FPOProfile />} />
           </Route>
         </Route>
 
         {/* ================= ADMIN ================= */}
-        <Route
-          path="/admin/login"
-          element={<AdminLogin />}
-        />
+        <Route path="/admin/login" element={<AdminLogin />} />
 
         <Route element={<ProtectedRoute allowedRole="admin" />}>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
 
-            <Route
-              path="verification"
-              element={<VerificationPage />}
-            />
+            <Route path="verification" element={<VerificationPage />} />
 
-            <Route
-              path="users"
-              element={<UsersPage />}
-            />
+            <Route path="users" element={<UsersPage />} />
 
-            <Route
-              path="settings"
-              element={<AdminSettings />}
-            />
+            <Route path="settings" element={<AdminSettings />} />
           </Route>
         </Route>
       </Routes>
@@ -250,5 +149,3 @@ function App() {
 }
 
 export default App;
-
-
