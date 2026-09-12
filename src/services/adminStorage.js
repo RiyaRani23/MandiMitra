@@ -47,7 +47,18 @@ export const getVerificationRequests = () => {
     return defaultRequests;
   }
 
-  return JSON.parse(stored);
+  try {
+    return JSON.parse(stored);
+  } catch (error) {
+    console.error("Invalid verification data:", error);
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(defaultRequests)
+    );
+
+    return defaultRequests;
+  }
 };
 
 export const updateVerificationStatus = (id, status) => {
@@ -64,5 +75,11 @@ export const updateVerificationStatus = (id, status) => {
     JSON.stringify(updatedRequests)
   );
 
+  // Notify other admin pages about the update
+  window.dispatchEvent(
+    new Event("admin-verification-updated")
+  );
+
   return updatedRequests;
 };
+

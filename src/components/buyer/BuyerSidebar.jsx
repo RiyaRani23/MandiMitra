@@ -9,18 +9,34 @@ import {
   LogOut,
   X,
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function BuyerSidebar({ isOpen, onClose }) {
   const menuItems = [
     { name: "Dashboard", icon: LayoutDashboard, path: "/buyer" },
     { name: "Market Prices", icon: Store, path: "/buyer/market-prices" },
-    { name: "Buying Requirements", icon: ClipboardList, path: "/buyer/requirements" },
+    {
+      name: "Buying Requirements",
+      icon: ClipboardList,
+      path: "/buyer/requirements",
+    },
     { name: "Find Farmers", icon: Users, path: "/buyer/find-farmers" },
     { name: "My Offers", icon: Handshake, path: "/buyer/offers" },
     { name: "My Deals", icon: PackageCheck, path: "/buyer/deals" },
     { name: "Payments", icon: CreditCard, path: "/buyer/payments" },
   ];
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // FUTURE BACKEND:
+    // Clear authentication/session data here
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/login");
+  };
 
   return (
     <aside
@@ -79,7 +95,11 @@ function BuyerSidebar({ isOpen, onClose }) {
 
       {/* Logout */}
       <div className="border-t border-white/10 p-3">
-        <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-white/60 hover:bg-red-500/10 hover:text-red-300">
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-white/60 transition hover:bg-red-500/10 hover:text-red-300"
+        >
           <LogOut size={18} />
           <span>Logout</span>
         </button>

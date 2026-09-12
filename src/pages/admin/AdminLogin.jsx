@@ -34,6 +34,19 @@ function AdminLogin() {
       loginData.email === demoEmail &&
       loginData.password === demoPassword
     ) {
+      // FUTURE BACKEND:
+      // Store the real authentication token after Spring Boot login.
+      localStorage.setItem("token", "demo-admin-token");
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          name: "MandiMitra Admin",
+          email: demoEmail,
+          role: "admin",
+        })
+      );
+
       navigate("/admin");
     } else {
       setError("Invalid admin email or password.");
@@ -42,7 +55,7 @@ function AdminLogin() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
-      <header className="mx-auto flex h-16 max-w-7xl items-center px-6">
+      <header className="mx-auto flex h-16 max-w-7xl items-center px-4 sm:px-6">
         <Link to="/" className="flex items-center gap-2">
           <img
             src={logo}
@@ -118,7 +131,7 @@ function AdminLogin() {
 
             <button
               type="submit"
-              className="group flex w-full items-center justify-center gap-2 rounded-xl bg-green-600 py-3 text-sm font-semibold text-white shadow-lg shadow-green-600/20 transition hover:bg-green-700"
+              className="group flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-green-600 py-3 text-sm font-semibold text-white shadow-lg shadow-green-600/20 transition hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-100"
             >
               Login as Admin
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -140,3 +153,4 @@ function AdminLogin() {
 }
 
 export default AdminLogin;
+

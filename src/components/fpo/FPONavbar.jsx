@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ChevronDown, User, LogOut } from "lucide-react";
+import {
+  ChevronDown,
+  User,
+  LogOut,
+  Menu,
+} from "lucide-react";
 import logo from "../../assets/logo.jpeg";
 
-function FPONavbar() {
+function FPONavbar({ onMenuClick }) {
   const [showProfile, setShowProfile] = useState(false);
   const navigate = useNavigate();
 
@@ -18,34 +23,52 @@ function FPONavbar() {
   };
 
   return (
-    <nav className="relative flex h-16 items-center justify-between border-b bg-white px-6">
-      {/* Logo */}
-      <Link to="/fpo/dashboard" className="flex items-center gap-3">
-        <img
-          src={logo}
-          alt="MandiMitra"
-          className="h-10 w-10 rounded-lg object-contain"
-        />
+    <nav className="relative flex h-16 items-center justify-between border-b bg-white px-4 sm:px-6">
+      {/* Left Section */}
+      <div className="flex items-center gap-3">
+        {/* Mobile Menu Button */}
+        <button
+          type="button"
+          onClick={onMenuClick}
+          className="rounded-lg p-2 text-gray-700 transition hover:bg-gray-100 lg:hidden"
+          aria-label="Open sidebar"
+        >
+          <Menu size={22} />
+        </button>
 
-        <div>
-          <h1 className="text-xl font-bold">
+        {/* Logo */}
+        <Link
+          to="/fpo/dashboard"
+          className="flex items-center gap-2 sm:gap-3"
+        >
+          <img
+            src={logo}
+            alt="MandiMitra"
+            className="h-9 w-9 rounded-lg object-contain sm:h-10 sm:w-10"
+          />
+
+          <h1 className="text-lg font-bold sm:text-xl">
             <span className="text-green-700">Mandi</span>
             <span className="text-[#f7941d]">Mitra</span>
           </h1>
-        </div>
-      </Link>
+        </Link>
+      </div>
 
       {/* Profile */}
       <div className="relative">
         <button
           type="button"
           onClick={() => setShowProfile(!showProfile)}
-          className="flex items-center gap-3 rounded-xl px-2 py-1.5 transition hover:bg-gray-50"
+          className="flex items-center gap-2 rounded-xl px-2 py-1.5 transition hover:bg-gray-50 sm:gap-3"
         >
           <div className="hidden text-right sm:block">
-            <p className="text-sm font-semibold text-gray-800">FPO Admin</p>
+            <p className="text-sm font-semibold text-gray-800">
+              FPO Admin
+            </p>
 
-            <p className="text-xs text-gray-500">Verified FPO</p>
+            <p className="text-xs text-gray-500">
+              Verified FPO
+            </p>
           </div>
 
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-green-100 font-semibold text-green-700">

@@ -52,6 +52,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import VerificationPage from "./pages/admin/VerificationPage";
 import UsersPage from "./pages/admin/UsersPage";
 import AdminSettings from "./pages/admin/AdminSettings";
+import AdminLayout from "./components/admin/AdminLayout";
 
 function App() {
   return (
@@ -67,7 +68,7 @@ function App() {
         <Route path="/register/fpo" element={<FPORegister />} />
         <Route path="/verification-pending" element={<VerificationPending />} />
         <Route path="/otp-verification" element={<OTPVerification />} />
-        
+
         {/* ================= FARMER ================= */}
         <Route path="/farmer" element={<FarmerLayout />}>
           {/* /farmer */}
@@ -133,12 +134,15 @@ function App() {
           <Route path="profile" element={<FPOProfile />} />
         </Route>
 
-        // Admin
+        {/* ================= ADMIN ================= */}
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/verification" element={<VerificationPage />} />
-        <Route path="/admin/users" element={<UsersPage />} />
-        <Route path="/admin/settings" element={<AdminSettings />} />
+
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="verification" element={<VerificationPage />} />
+          <Route path="users" element={<UsersPage />} />
+          <Route path="settings" element={<AdminSettings />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
